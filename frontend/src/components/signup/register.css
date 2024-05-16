@@ -1,0 +1,37 @@
+.register-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.register-form {
+    width: 40%;
+    padding: 20px;
+    margin-left: 150px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.btn-register {
+    background-color: #E00947;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    
+}
+
+.image-x {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.register-image {
+    max-width: 80%;
+    height: auto;
+}

@@ -1,0 +1,66 @@
+.App {
+    text-align: center;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  .searchbar input {
+    padding: 8px;
+    width: 200px;
+  }
+  
+  .icons img {
+    height: 30px;
+    margin-left: 10px;
+  }
+  
+  .slideshow {
+    position: relative;
+    margin: 20px auto;
+    max-width: 600px;
+  }
+  
+  .slide {
+    width: 100%;
+    height: auto;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  .prev,
+  .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+  
+  .photo-names {
+    margin-top: 20px;
+  }
+  
+  /* Add more styling as needed */
+  

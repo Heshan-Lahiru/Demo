@@ -1,0 +1,88 @@
+header {
+  background-color: #fff;
+  height: 10vh;
+  box-shadow: 0 5px 30px rgb(0 22 84 / 10%);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+}
+header .logo img{
+  width:170px;
+  height:60px;
+}
+header img {
+  width: 170px;
+}
+header a {
+  margin-left: 30px;
+  transition: 0.5s;
+  font-weight: 500;
+}
+header a:hover {
+  color: #E00947;
+}
+.custom-link {
+  background-color:  #27ae60;
+  color: white;
+  border-radius: 30%;
+  padding: 5px 10px; /* Adding padding for better visual appearance */
+  text-decoration: none; /* Remove underline */
+  margin: 10px; /* Add some margin between links */
+  display: inline-block; /* Ensure links are displayed in a row */
+}
+
+header span {
+  width: auto;
+  padding: 0px 6px;
+  background: #27ae60;
+  border-radius: 50px;
+  color: #ffffff;
+  width:60px;
+  margin-right: 4px;
+  font-weight: 400;
+}
+header h4 {
+  font-weight: 500;
+  margin-right: 20px;
+}
+header .toggle {
+  display: none;
+}
+@media screen and (max-width: 1164px) {
+  header {
+    padding: 0;
+  }
+  header img {
+    margin-top: 30px;
+  }
+  header .button {
+    display: none;
+  }
+  header a:hover {
+    color: #000000;
+  }
+  
+  header .nav .flex {
+    display: none;
+  }
+  header .toggle {
+    
+    display: block;
+   
+    margin-top: 20px;
+  }
+  header .small {
+    position: absolute;
+    top: 10vh;
+    left: 0;
+    width: 100%;
+    background-color: #E00947;
+    padding: 20px;
+  }
+  header li a {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+}

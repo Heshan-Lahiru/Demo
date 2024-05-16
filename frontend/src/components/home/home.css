@@ -1,0 +1,210 @@
+/* home.css */
+.video-a {
+  position: relative;
+  text-align: center;
+}
+
+.video-a video {
+  width: 100%;
+}
+
+.centered-text {
+  color: aliceblue;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.social-logos {
+  width:80px;
+  margin: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.register-button {
+  display: block;
+  margin: 20px auto;
+}
+
+.content-box {
+  width: 80%;
+  margin: 60px auto;
+}
+
+.content {
+  display: flex;
+}
+
+.left-content,
+.right-content {
+  flex: 1;
+}
+
+.right-content {
+  text-align: center;
+}
+
+.image-row {
+  display: flex;
+  width:80%;
+  height: auto;
+  margin-left: 10px;
+}
+
+.image-row img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Media Queries for Responsive Design */
+
+/* For screens smaller than 768px */
+@media (max-width: 767px) {
+  .image-row {
+    flex-wrap: wrap;
+  }
+  
+  .image-row img {
+    width: 60%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+/* For screens between 768px and 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .image-row img {
+    width: 15%; /* Display two images per row */
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+}
+
+/* For screens larger than 1023px */
+@media (min-width: 1024px) {
+  .image-row img {
+    width: 30%; /* Display three images per row */
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 1500px) {
+  .image-row img {
+    width: 20%; /* Display three images per row */
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+/* home.css */
+
+.card-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.card {
+  width: 70px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.card img {
+  width: 60%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+/* Add more CSS styling as needed */
+.slideshow-container {
+  width: 50%; /* Set the width of the slideshow container */
+  height: 50%; /* Set the height of the slideshow container */
+  margin: 0 auto; /* Center the slideshow horizontally */
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.slides {
+  display: flex; /* Display slides in a row */
+  transition: transform 0.5s ease; /* Add smooth transition effect */
+}
+
+.slides img {
+  width: 100%; /* Make images fill the slide container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* home.css */
+
+.content-box {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.content {
+  display: flex;
+}
+
+.left-content,
+.right-content {
+  flex: 1;
+}
+
+.right-content {
+  text-align: center;
+}
+
+.decoration-line {
+  height: 100px; /* Adjust height as needed */
+  width: 2px;
+  background-color: black;
+  margin: 0 auto;
+}
+
+/* Add more CSS styling as needed */
+/* home.css */
+
+.customer-ratings {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rating-card {
+  width: 18%;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.stars {
+  color: gold;
+  font-size: 20px;
+}
+
+.star {
+  margin-right: 2px;
+}
+
+.customer-image {
+  width: 50%;
+  height:50%;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+.comment {
+  margin-top: 10px;
+}
+
+/* Add more CSS styling as needed */

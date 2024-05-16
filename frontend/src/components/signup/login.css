@@ -1,0 +1,35 @@
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+}
+
+.login-form {
+    width: 30%;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.btn-login {
+    background-color: #E00947;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.image-s {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-image {
+    max-width: 100%;
+    height: auto;
+}

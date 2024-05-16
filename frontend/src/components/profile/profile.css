@@ -1,0 +1,41 @@
+/* AdminPanel.css */
+.admin-panel {
+    display: flex;
+    justify-content: space-between;
+    height: 900px;
+}
+
+.left-panel {
+    width: 300px;
+    height: 900px;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+.left-panel button {
+    display: block;
+    margin-top: 60px;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #E00947;
+    cursor: pointer;
+}
+
+.right-panel {
+    flex: 1;
+    padding: 20px;
+}
+
+.details {
+    margin-top: 100px;
+    margin-left: 200px;
+    margin-bottom: 20px;
+}
+
+.logo12 img {
+    
+    max-width: 600px;
+    max-height: 500px;
+}

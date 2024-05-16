@@ -1,0 +1,22 @@
+
+.featured img {
+  width: 65px;
+  height: 65px;
+  margin: auto;
+}
+.search-bar {
+  background-color: rgb(214, 214, 214);
+  width: 80%;
+  margin: 0 auto; /* Center the container horizontally */
+  border-radius: 30px;
+ 
+  padding: 20px; /* Adjust padding as needed */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+  color: black; /* Input text color */
+}
+
+.search-bar input[type="text"]::placeholder {
+  color: rgb(0, 0, 0); /* Placeholder text color */
+}
+
+
