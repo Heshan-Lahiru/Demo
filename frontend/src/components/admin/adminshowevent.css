@@ -1,0 +1,4 @@
+.right-panel {
+    overflow-y: auto; /* Enable vertical scrolling only */
+    height: calc(100vh - [height of top section]); /* Adjust height as needed */
+  }

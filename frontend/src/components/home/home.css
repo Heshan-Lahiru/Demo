@@ -101,14 +101,14 @@
 
 /* home.css */
 
-.card-container {
+.card-one {
   display: flex;
   justify-content: space-around;
   margin-top: 20px;
 }
 
 .card {
-  width: 70px;
+  width: 270px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin: 0 10px;

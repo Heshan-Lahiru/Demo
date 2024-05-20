@@ -1,152 +1,133 @@
+import React, { useState, useEffect } from 'react';
+import { useHistory, Link } from 'react-router-dom'; // Import Link here
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import "../admin/adminshowevent.css";
 
-import React from "react"
+// Assuming you have a Heading component, import it here
 
 const Ownerevents = () => {
+  const [events, setEvents] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const history = useHistory();
+  const storedUserId = Cookies.get('userId');
 
- 
- 
-    return (
-        <>
-          <section className='recent padding'>
-            <div className='container'>
+  useEffect(() => {
+    if (!storedUserId) {
+      setRedirect(true);
+    } else {
+      fetchUserEvents(storedUserId);
+    }
+  }, [storedUserId]);
 
-             <center><h1 style={{fontSize:'4rem', fontFamily: 'Courier, monospace', marginBottom:'70px' }}>My Events</h1></center>
-<hr></hr>
-                  <div className='content grid3 mtop'>
-                            <div className='box shadow'>
-                                <div className='img'>
-                                  <img  style={{  height :'400px' }}   src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1L1WiUFe73LpfLJDlYvVZOuloIQegbprb_cTNMb9GQ&s' alt='' />
-                                </div>
-                                <div className='text'>
-                                  <div className='category flex'>
-                                    <span>Musical Show</span>
-                                    <i className='fa fa-heart'></i>
-                                  </div>
-                                  <h4>Musical</h4>
-                                  <p>
-                                    <i className='fa fa-location-dot'></i> Gampaha
-                                  </p>
-                                </div>
-                                <div className='button flex'>
-                                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}}  className='btn2'>Delete</button>
-                                  </div>
-                                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}} className='btn2'>Update</button>
-                                  </div>
-                                  
-                                </div>
-                              </div>
-    
-                          
-              
-              <div  className='box shadow'>
-                  <div className='img'>
-                    <img  style={{  height :'400px' }}   src='https://upload.wikimedia.org/wikipedia/en/d/d5/Carnival_1961.jpg' alt='' />
-                  </div>
-                  <div className='text'>
-                    <div className='category flex'>
-                      <span>Musical Show</span>
-                      <i className='fa fa-heart'></i>
-                    </div>
-                    <h4>Musical</h4>
-                    <p>
-                      <i className='fa fa-location-dot'></i> Gampaha
-                    </p>
-                  </div>
-                  <div className='button flex'>
-                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}}  className='btn2'>Delete</button>
-                                  </div>
-                                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}} className='btn2'>Update</button>
-                                  </div>
+  const fetchUserEvents = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/onlyuserevents/${userId}`);
+      setEvents(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+      setLoading(false);
+    }
+  };
 
-                  </div>
-                </div>
-    
-    
-    
-                <div  className='box shadow'>
-                  <div className='img'>
-                    <img  style={{  height :'400px' }}   src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQp4xcciRDN8Ocqydl7zizU16kxXrdNTNwZABQMTyWjjg&s' alt='' />
-                  </div>
-                  <div className='text'>
-                    <div className='category flex'>
-                      <span>Musical Show</span>
-                      <i className='fa fa-heart'></i>
+  const handleDelete = async (eventId, userId) => {
+    try {
+      await axios.delete(`http://localhost:3001/deleteEvent/${eventId}`);
+      // Update the events list after successful deletion
+      fetchUserEvents(userId);
+    } catch (error) {
+      console.error('Error deleting event:', error);
+    }
+  };
+
+  const handleLogout = () => {
+    // Remove cookies
+    Cookies.remove('userId');
+    Cookies.remove('userName');
+    Cookies.remove('userEmail');
+    // Redirect to login page
+    setRedirect(true);
+  };
+
+  if (redirect) {
+    history.push('/login');
+    // Refresh the page
+    window.location.reload();
+    return null;
+  }
+
+  return (
+    <>
+      <div className="admin-panel" style={{ display: "flex" }}>
+        <div className="left-panel">
+          <button><a style={{ color: 'white' }} href='/profile'>Profile</a></button>
+          <button><a style={{ color: 'white' }} href='/eventadd'>Add Events</a></button>
+          <button><a style={{ color: 'white' }} href='/servicesadd'>Add Services</a></button>
+          <button><a style={{ color: 'white' }} href='/ownerevents'>My Events</a></button>
+          <button><a style={{ color: 'white' }} href='/ownerservices'>My Services</a></button>
+          <button><a style={{ color: 'white' }} href='/userhelp'>Help</a></button>
+          <button onClick={handleLogout}>Log out</button>
+        </div>
+
+        <div className="right-panel" style={{ flexGrow: 1, overflow: 'auto' }}>
+          <section className="recent padding">
+            <div className="container">
+              <div className="content grid3 mtop">
+                {loading ? (
+                  <p>Loading events...</p>
+                ) : events.length > 0 ? (
+                  events.map((event) => (
+                    <div className="box shadow" key={event._id}>
+                      <div className="img">
+                        <img
+                          style={{ height: "400px" }}
+                          src={`./images/event/${event.image}`}
+                          alt=""
+                        />
+                      </div>
+                      <div className="text">
+                        <div className="category flex">
+                          <span>{event.category}</span>
+                          <i className="fa fa-heart"></i>
+                        </div>
+                        <h4>{event.eventName}</h4>
+                        <p>
+                          <i className="fa fa-location-dot"></i> {event.location}
+                        </p>
+                      </div>
+                      <div className="button flex">
+                        <div>
+                          <button
+                            style={{ backgroundColor: "#E00947" }}
+                            className="btn2"
+                            onClick={() => handleDelete(event._id, storedUserId)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                        <Link to={`/usereventupdate/${event._id}`}>
+                          <button
+                            style={{ backgroundColor: "white", color: "black" }}
+                            className="btn2"
+                          >
+                            Update
+                          </button>
+                        </Link>
+                      </div>
                     </div>
-                    <h4>Musical</h4>
-                    <p>
-                      <i className='fa fa-location-dot'></i> Gampaha
-                    </p>
-                  </div>
-                  <div className='button flex'>
-                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}}  className='btn2'>Delete</button>
-                                  </div>
-                                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}} className='btn2'>Update</button>
-                                  </div>
-                  </div>
-                </div>
-    
-    
-                <div className='box shadow'>
-                  <div className='img'>
-                    <img  style={{  height :'400px' }}   src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSe9DbDgkW7s48CHZGE7PzgZCpe41pwULztk9_SokBKIw&s' alt='' />
-                  </div>
-                  <div className='text'>
-                    <div className='category flex'>
-                      <span>Musical Show</span>
-                      <i className='fa fa-heart'></i>
-                    </div>
-                    <h4>Musical</h4>
-                    <p>
-                      <i className='fa fa-location-dot'></i> Gampaha
-                    </p>
-                  </div>
-                  <div className='button flex'>
-                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}}  className='btn2'>Delete</button>
-                                  </div>
-                                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}} className='btn2'>Update</button>
-                                  </div>
-                  </div>
-                </div>
-    
-    
-                <div className='box shadow'>
-                  <div className='img'>
-                    <img  style={{  height :'400px' }}   src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2BU9HjKOIAKJZyjmyp_c5N1w6bT-RG1AupnYWak-X4g&s' alt='' />
-                  </div>
-                  <div className='text'>
-                    <div className='category flex'>
-                      <span>Musical Show</span>
-                      <i className='fa fa-heart'></i>
-                    </div>
-                    <h4>Musical</h4>
-                    <p>
-                      <i className='fa fa-location-dot'></i> Gampaha
-                    </p>
-                  </div>
-                  <div className='button flex'>
-                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}}  className='btn2'>Delete</button>
-                                  </div>
-                                  <div>
-                                    <button style={{backgroundColor: 'transparent', color:'#E00947'}} className='btn2'>Update</button>
-                                  </div>
-                  </div>
-                </div>
-    
-    </div>
-    
+                  ))
+                ) : (
+                  <p>No events found for your search location.</p>
+                )}
+              </div>
             </div>
           </section>
-        </>
-      )
-    
-}
-    export default Ownerevents;
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Ownerevents;

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import "./eventadd.css";
 
@@ -13,6 +15,19 @@ const Eventadd = () => {
   const [locationError, setLocationError] = useState(""); // State to manage location format error
   const [priceError, setPriceError] = useState(""); // State to manage price format error
   const [submissionError, setSubmissionError] = useState("");
+  const history = useHistory();
+  const [redirect, setRedirect] = useState(false);
+  const userId = Cookies.get('userId');
+  useEffect(() => {
+    if (!userId) {
+      setRedirect(true);
+    }
+  }, [userId]);
+
+  if (redirect) {
+    history.push('/login');
+    return null;
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,12 +60,13 @@ const Eventadd = () => {
         setPriceError("");
       }
 
-      const formData = new FormData();
+       const formData = new FormData();
       formData.append('image', image);
       formData.append('category', category);
       formData.append('eventName', eventName);
       formData.append('location', location);
       formData.append('price', price);
+      formData.append('userId', userId); 
 
       const response = await axios.post('http://localhost:3001/eventadd', formData, {
         headers: {
@@ -99,12 +115,32 @@ const Eventadd = () => {
     const priceRegex = /^\d{3,5}$/;
     return priceRegex.test(inputPrice);
   };
+  const handleLogout = () => {
+    // Remove cookies
+    Cookies.remove('userId');
+    Cookies.remove('userName');
+    Cookies.remove('userEmail');
+    // Redirect to login page
+    setRedirect(true);
+};
+
 
   return (
-    <div className="container">
-      <div className="left">
-        <h2>Fill Form For Add Event</h2>
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <div className="ev">
+      <div className="left-panel" >
+      <button><a style={{color:'white'}} href='/profile'>Profile</a></button>
+            <button><a style={{color:'white'}} href='/eventadd'>Add Events</a></button>
+            <button><a style={{color:'white'}} href='/servicesadd'>Add Services</a></button>
+                <button><a style={{color:'white'}} href='/ownerevents'>My Events</a></button>
+                <button><a  style={{color:'white'}}href='/ownerservices'>My Services</a></button>
+                <button><a style={{color:'white'}} href='/userhelp'>Help</a></button>
+                <button onClick={handleLogout}>Log out</button>
+             </div>
+      <div className="right">
+
+
+      
+        <form class="formclass" onSubmit={handleSubmit} encType="multipart/form-data">
           <div>
             <label htmlFor="image">Image:</label>
             <input
@@ -162,10 +198,10 @@ const Eventadd = () => {
             Submit
           </button>
           {submissionError && <p className="error">{submissionError}</p>}
-        </form>
-      </div>
-      <div className="right">
-        <img src="https://cdn.dribbble.com/users/424937/screenshots/6660260/01-account-created-dribbble.gif" alt="" />
+        </form>      
+      
+      
+      
       </div>
     </div>
   );

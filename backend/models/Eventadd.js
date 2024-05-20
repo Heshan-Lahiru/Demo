@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 // Define schema for event data
 const EventSchema = new mongoose.Schema({
+    userId: {
+        type: String,
+        required: true
+    },
     image: {
         type: String,
         required: true

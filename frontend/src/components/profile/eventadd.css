@@ -5,10 +5,24 @@
     justify-content: center;
     height: 100vh;
   }
-  .container {
+  .ev {
     display: flex;
   }
-  
+  .formclass {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width:500px;
+    height:520px;
+    background-image: url('https://media1.giphy.com/media/r7syqIxIQSFRZZB2CC/giphy.gif?cid=6c09b952ndty1vx5285cbrx8n4qbpt5n6ojfvppwh1m89qzo&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Optional additional styling */
+    padding: 60px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
   .left {
     flex: 1;
     padding: 20px;
@@ -16,14 +30,31 @@
   
   .right {
     flex: 1;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
-  .right img {
-    max-width: 100%;
-    height: auto;
-  }
+
+  /* AdminPanel.css */
+
+
+.left-panel {
+  width: 300px;
+  height: 900px;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.left-panel button {
+  display: block;
+  margin-top: 60px;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  
+  cursor: pointer;
+}
   

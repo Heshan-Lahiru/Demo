@@ -1,14 +1,15 @@
 /* AdminPanel.css */
+
 .admin-panel {
     display: flex;
     justify-content: space-between;
-    height: 900px;
+   
 }
 
 .left-panel {
     width: 300px;
-    height: 900px;
-    background-color: #f0f0f0;
+  height: 100%;
+    background-color: #31356b;
     padding: 20px;
 }
 
@@ -18,24 +19,166 @@
     margin-bottom: 10px;
     width: 100%;
     padding: 10px;
+    font-size: 1rem;
     border: none;
-    background-color: #E00947;
+    background-color: #31356b;
     cursor: pointer;
+}
+.left-panel button:hover {
+    background-color: red;
 }
 
 .right-panel {
     flex: 1;
     padding: 20px;
 }
+.right-panel {
+    overflow-y: auto; /* Enable vertical scrolling only */
+    height: calc(100vh - [height of top section]); /* Adjust height as needed */
+  }
 
-.details {
-    margin-top: 100px;
-    margin-left: 200px;
+.top-right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blue-box {
+    background-color: #31356b;
+    width: 100%; /* Adjust width automatically */
+    height: auto; /* Adjust height automatically */
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.blue-box input {
+    background-color: rgb(255, 255, 255);
+    width: 200px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.a {
+    display: flex;
+    flex-wrap: wrap; /* Ensures items wrap to the next line on smaller screens */
+  }
+  
+
+  h2 {
+    margin-top: 20px;
+  }
+  
+  .navigation {
+    margin-top: 20px;
+  }
+  
+  .navigation button {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  
+  h1 {
+    margin-top: 0;
+  }
+  
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
-}
-
-.logoad img {
-    
-    max-width: 600px;
-    max-height: 500px;
-}
+  }
+  
+  .dropdown-menu {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  }
+  
+  .dropdown-menu select {
+    flex: 1; /* Take up remaining space */
+    margin-right: 10px;
+    margin-bottom: 10px; /* Add margin for spacing between items */
+  }
+  
+  .search-bar {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  }
+  
+  .search-bar input {
+    flex: 1; /* Take up remaining space */
+    padding: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px; /* Add margin for spacing between items */
+  }
+  
+  .search-bar button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px; /* Add margin for spacing between items */
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #ffffff;
+  }
+  
+  button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: darkred;
+  }
+  
+  /* Media query for smaller screens */
+  @media only screen and (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+  
+    .left-side {
+      width: 100%;
+    }
+  
+    .right-side {
+      width: 100%;
+    }
+  
+    .dropdown-menu select,
+    .search-bar input,
+    .search-bar button {
+      width: 100%; /* Full width on smaller screens */
+      margin-right: 0; /* No margin on smaller screens */
+    }
+  }
+  

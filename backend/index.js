@@ -9,14 +9,33 @@ const multer = require('multer');
 const path = require('path');
 
 
+
+
+const dotenv = require('dotenv');
+dotenv.config(); 
+const session = require('express-session')
+
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+app.use(cors({}));
+
+
 app.use(express.static('public'));
 
+app.use(session({
+  secret: 'your_secret_key_here', // Replace with a strong, random secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set to true for https in production
+}));
+
+
+
 // Connect to MongoDB Atlas
-mongoose.connect('mongodb+srv://lahiruheshan454:0PYlACm6PnnaksAV@date.hrteqjj.mongodb.net/?retryWrites=true&w=majority&appName=date')
-  .then(() => {
+mongoose.connect(process.env.MONGODB_URI)
+ 
+.then(() => {
     console.log('MongoDB connected');
     // Start the server after successfully connecting to MongoDB
     const PORT = process.env.PORT || 3001;
@@ -71,20 +90,20 @@ const upload = multer({ storage: storage }); // Define the upload variable
 // Update /eventadd endpoint to handle file uploads
 app.post('/eventadd', upload.single('image'), async (req, res) => {
   try {
-    // Check if image file was uploaded
     if (!req.file) {
       return res.status(400).json({ error: "Image file is required" });
     }
 
-    const imageFileName = req.file.filename; // Get the uploaded image file name
+    const imageFileName = req.file.filename;
 
-    // Save event data to database with image file name
+    // Save event data to database with image file name and userId
     const newEvent = await EventaddModel.create({
       image: imageFileName,
       category: req.body.category,
       eventName: req.body.eventName,
       location: req.body.location,
-      price: req.body.price
+      price: req.body.price,
+      userId: req.body.userId // Save userId to the database
     });
 
     res.status(201).json(newEvent);
@@ -95,11 +114,7 @@ app.post('/eventadd', upload.single('image'), async (req, res) => {
 });
 
 
-
-
-
-
-
+ 
 
 // Login endpoint
 app.post('/login', async (req, res) => {
@@ -109,37 +124,59 @@ app.post('/login', async (req, res) => {
     // Find user by email
     const user = await FormDataModel.findOne({ email });
 
-    // Check if user exists
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    console.log("Stored hashed password:", user.password); // Log hashed password from database
-    console.log("Provided password:", password); // Log plain-text password provided by user
-
-    // Compare passwords
     const passwordMatch = await bcrypt.compare(password, user.password);
-
-    console.log("Password match:", passwordMatch); // Log the result of password comparison
 
     if (!passwordMatch) {
       return res.status(401).json({ error: "Incorrect email or password" });
     }
+    
+    req.session.userId = user._id;
 
-    res.json({ message: "Login successful" });
+    // Send user's name, email, and ID in the response
+    res.json({ message: "Login successful", userId: user._id, name: user.name, email: user.email });
   } catch (error) {
     console.error('Error logging in:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-app.get('/getEvents', (req,res) => {
 
-  EventaddModel.find()
-  .then(events => res.json(events))
+
+
+
+app.get('/getUsers', (req,res) => {
+
+  FormDataModel.find()
+  .then(users => res.json(users))
   .catch(err => res.json(err))
 
 })
+
+app.delete('/deleteUser/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    // Delete the user from the 'users' collection
+    const deletedUser = await UserModel.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error('Error deleting User:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+
 
 // Delete Event Endpoint
 app.delete('/deleteEvent/:id', async (req, res) => {
@@ -160,8 +197,27 @@ app.delete('/deleteEvent/:id', async (req, res) => {
   }
 });
 
+app.get('/getEvents', (req,res) => {
 
-// Update Event Endpoint
+  EventaddModel.find()
+  .then(events => res.json(events))
+  .catch(err => res.json(err))
+
+})
+
+app.get('/onlyuserevents/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const events = await EventaddModel.find({ userId });
+    res.status(200).json(events);
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
 app.put('/updateEvent/:id', upload.single('image'), async (req, res) => {
   try {
     const eventId = req.params.id;
@@ -191,18 +247,9 @@ app.put('/updateEvent/:id', upload.single('image'), async (req, res) => {
     // Save the updated event
     const updatedEvent = await existingEvent.save();
 
-    res.json(updatedEvent);
-
-    window.location.href = "/adminshowevent";
-
+    res.json(updatedEvent);  // Respond with the updated event
   } catch (error) {
     console.error('Error updating event:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
-
-
-
-

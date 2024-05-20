@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import axios from "axios";
 
 function Update() {
   const { id } = useParams();
+  const history = useHistory();  // Use history for redirection
   const [event, setEvent] = useState({
     image: null,
     category: "",
@@ -13,7 +14,6 @@ function Update() {
   });
 
   useEffect(() => {
-    // Fetch event data when the component mounts
     axios.get(`http://localhost:3001/getEvents/${id}`)
       .then(response => setEvent(response.data))
       .catch(err => console.log(err));
@@ -51,38 +51,52 @@ function Update() {
         }
       });
       console.log(response.data);
-      // Redirect or show success message
+      history.push("/adminshowevent");  // Redirect after successful update
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div>
-      <h2>Update Event</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Image:</label>
-          <input type="file" name="image" onChange={handleImageChange} />
+    <div className="admin-panel">
+      <div className="left-panel">
+        <button><a style={{ color: 'white' }} href='/adminhome'>Users</a></button>
+        <button><a style={{ color: 'white' }} href='/adminticket'>Ticket Booking</a></button>
+        <button><a style={{ color: 'white' }} href='/adminservices'>Services</a></button>
+        <button><a style={{ color: 'white' }} href='/adminshowevent'>Events</a></button>
+        <button><a style={{ color: 'white' }} href='/adminhelp'>Help</a></button>
+      </div>
+      <div className="right-panel" style={{ flexGrow: 1, overflow: 'auto' }}>
+        <div className="top-right-section">
+          <div className="blue-box">
+            <input type="text" placeholder="Search..." />
+          </div>
+          <h2>Update Event</h2>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Image:</label>
+              <input type="file" name="image" onChange={handleImageChange} />
+            </div>
+            <div>
+              <label>Category:</label>
+              <input type="text" name="category" value={event.category} onChange={handleChange} />
+            </div>
+            <div>
+              <label>Event Name:</label>
+              <input type="text" name="eventName" value={event.eventName} onChange={handleChange} />
+            </div>
+            <div>
+              <label>Location:</label>
+              <input type="text" name="location" value={event.location} onChange={handleChange} />
+            </div>
+            <div>
+              <label>Price:</label>
+              <input type="text" name="price" value={event.price} onChange={handleChange} />
+            </div>
+            <button type="submit">Update Event</button>
+          </form>
         </div>
-        <div>
-          <label>Category:</label>
-          <input type="text" name="category" value={event.category} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Event Name:</label>
-          <input type="text" name="eventName" value={event.eventName} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Location:</label>
-          <input type="text" name="location" value={event.location} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Price:</label>
-          <input type="text" name="price" value={event.price} onChange={handleChange} />
-        </div>
-        <button type="submit">Update Event</button>
-      </form>
+      </div>
     </div>
   );
 }

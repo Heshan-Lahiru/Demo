@@ -138,7 +138,7 @@ const HomePage = () => {
         </div>
         <hr style={{marginBottom:'100px'}} />
 
-        <div style={{ marginTop:'150px',marginBottom:'150px'}} className="card-container">
+        <div style={{ marginTop:'150px',marginBottom:'150px'}} className="card-one">
         <Card
           title="Musical Shows"
           description="Enjoy with us"
