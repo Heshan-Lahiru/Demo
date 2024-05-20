@@ -1,0 +1,53 @@
+/* Showsoundspage.css */
+
+.show-sounds-s {
+    margin-top: 100px;
+    margin-bottom: 100px;
+    width: 100%; /* Container takes up full width */
+    text-align: center; /* Center content horizontally */
+  }
+  
+  .sound-cards {
+    
+    display: flex; /* Cards displayed horizontally in a row */
+    flex-wrap: wrap; /* Cards wrap to multiple lines if needed */
+    justify-content: space-around; /* Cards evenly spaced */
+    margin: 20px auto; /* Add some margin for spacing */
+    width: 80%; /* Set container width to 80% */
+  }
+  
+  .sound-card {
+    
+    width: 60%; /* Individual card width (adjust based on desired layout) */
+    margin: 10px; /* Spacing between cards */
+    background-color: #fff; /* White background */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle 3D shadow */
+    border-radius: 5px; /* Rounded corners */
+    overflow: hidden; /* Clip overflowing content */
+    transition: all 0.2s ease-in-out; /* Smooth transition on hover */
+    cursor: pointer; /* Indicate hover interaction (optional) */
+  }
+  
+  .sound-card img {
+    margin-top: 10px;
+    width: 50%; /* Image takes up full card width */
+    height: 50%; /* Set image height (adjust as needed) */
+    object-fit: cover; /* Crop image to fit within container */
+  }
+  
+  .sound-card h3,
+  .sound-card p {
+    padding: 10px; /* Padding for content within card */
+    margin: 0; /* Remove default margins */
+  }
+  
+  .sound-card h3 {
+    font-size: 18px; /* Heading size */
+    margin-bottom: 5px; /* Add space below heading */
+  }
+  
+  .sound-card:hover {
+    transform: scale(1.02); /* Slight zoom on hover */
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  }
+  

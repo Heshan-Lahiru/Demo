@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+
 import Heading from "../../common/Heading";
 import "./recent.css";
 import axios from "axios";
@@ -74,7 +76,18 @@ function Recent() {
                   </div>
                   <div className='button flex'>
                     <div>
-                      <button style={{ backgroundColor: '#E00947' }} className='btn2'>LKR.{event.price}/=</button> <label htmlFor=''>Price</label>
+                      <button style={{ backgroundColor: '#E00947', color: 'white' }} className='btn2'>
+                        <Link 
+                          style={{ color: 'white' }} 
+                          to={{
+                            pathname: `/userpageticketbook`,
+                            state: { price: event.price }
+                          }}
+                        >
+                          LKR.{event.price}/=
+                        </Link>
+                      </button>
+                      <label htmlFor=''>Price</label>
                     </div>
                     <span>Enjoy</span>
                   </div>

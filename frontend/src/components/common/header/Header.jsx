@@ -36,10 +36,10 @@ const Header = () => {
                 <Link to="/event">EVENT</Link>
               </li>
               <li>
-                <Link to="/login">About Us</Link>
+                <Link to="/aboutus">About Us</Link>
               </li>
               <li>
-                <Link to="/register">signup</Link>
+                <Link to="/contactus">Contact Us</Link>
               </li>
               <li style={{ marginRight: "50px" }}>
                 <a href="/aboutus">
@@ -48,7 +48,7 @@ const Header = () => {
               </li>
               <li>
                 <a href="/profile">
-                  <img style={{ width: "30px", height: "30px" }} src="./images/5987424.png" alt="" />
+                  <img style={{ width: "30px", height: "30px" }} src="../images/5987424.png" alt="" />
                   <h4>{userName ? userName : "Login now"}</h4>
                 </a>
               </li>

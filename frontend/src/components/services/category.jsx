@@ -1,78 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./category.css";
 
 const Home = () => {
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    fetchServices();
+  }, []);
+
+  const fetchServices = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/getServices");
+      setServices(response.data);
+    } catch (error) {
+      console.error("Error fetching services:", error);
+    }
+  };
+
   return (
     <div className="home-container">
       <div className="image-container">
-        <img
-          src="./images/my.gif"
-          alt="Nature"
-          className="image"
-        />
+        <img src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg" alt="Nature" className="image" />
       </div>
 
+<div style={{marginTop:'100px'}}> <center>
+<h1>Why you Book Our Services</h1>
+      <hr>
+      </hr>
+      <br>
+      </br>
+     <p>Services play a crucial role in enhancing our daily lives and driving economic growth. They offer convenience, expertise, and efficiency, enabling individuals and businesses to focus on their core activities. From healthcare and education to financial services and technology support, these offerings improve quality of life, foster innovation, and create employment opportunities. The value of services lies in their ability to meet diverse needs, adapt to changing demands, and provide solutions that drive progress and well-being.</p><br></br>
+     </center>
+</div>
+      <div  className="card-container">
+        {services.map((service) => (
+          <div style={{width:'800px', marginTop:'120px',marginBottom:'120px'}} className="card" key={service._id}>
+            <div className="card-image">
+              <img style={{width:'400px'}} src={`./images/event/${service.image}`} alt="Nature" className="image" />
+            </div>
+            <div className="card-details">
+              <h2>{service.name}</h2>
+              <p>{service.details}</p>
+              
+              <Link to={`/details/${service._id}`}>View Details</Link>
 
-      <div className="card-container" style={{marginTop:'100px', marginBottom:'100px'}}>
-        <div className="card" style={{width:'1200px'}}>
-          <div className="card-image">
-            <img
-              src="https://i.pinimg.com/originals/8a/83/c8/8a83c8978f1b376321fde613d460e88d.gif"
-              alt="Nature"
-              className="image"
-            />
+            </div>
           </div>
-          <div className="card-details">
-            <h2>Sound Services</h2>
-            <p>Every Weding Items You can rent or book.</p>
-            <p>Author: Team1</p>
-            <Link to="/details">View Details</Link>
-          </div>
-        </div>
-       
+        ))}
       </div>
-
-
-      <div className="card-container">
-        <div className="card" style={{width:'1200px'}}>
-          <div className="card-image">
-            <img
-              src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/75581f44224795.581dafaf495f7.gif"
-              alt="Nature"
-              className="image"
-            />
-          </div>
-          <div className="card-details">
-            <h2>Stage Services</h2>
-            <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>Author: John Doe</p>
-            <Link to="/details">View Details</Link>
-          </div>
-        </div>
-       
-      </div>
-
-
-      <div className="card-container">
-        <div className="card" style={{width:'1200px'}}>
-          <div className="card-image">
-            <img
-              src="https://i.pinimg.com/originals/0b/53/ac/0b53aceccc92d2a6374157f5c8582365.gif"
-              alt="Nature"
-              className="image"
-            />
-          </div>
-          <div className="card-details">
-            <h2>Light Services</h2>
-            <p>Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>Author: John Doe</p>
-            <Link to="/details">View Details</Link>
-          </div>
-        </div>
-       
-      </div>
-
+     
     </div>
   );
 };

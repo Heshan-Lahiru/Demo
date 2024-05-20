@@ -16,7 +16,7 @@ import Event from "../event/event";
 
 //services
 import Category from "../services/category";
-
+import Details from "../services/details";
 
 //signup
 import Register from "../signup/register";
@@ -24,6 +24,8 @@ import Login from "../signup/login";
 
 //home
 import Aboutus from "../home/aboutus";
+import Contactus from "../home/contactus";
+
 import Home from "../home/home";
 
 //user profile
@@ -35,6 +37,12 @@ import Ownerservices from "../profile/ownerservices";
 import Servicesadd from "../profile/servicesadd";
 import Usereventupdate from "../profile/usereventupdate";
 
+import Sounds from "../profile/Sounds";
+import Edituserservice from "../profile/edituserservice";
+
+
+
+
 
 //admin all
 
@@ -44,6 +52,8 @@ import Adminservices from "../admin/adminservices";
 import Adminticket from "../admin/adminticket";
 import Adminhome from "../admin/adminhome";
 import Adminshowevent from "../admin/adminshowevent";
+import Adminshowservices from "../admin/adminshowservices";
+
 
 
 
@@ -57,6 +67,7 @@ const Pages = () => {
     "/adminhelp",
     "/adminservices",
     "/adminticket",
+    "/adminshowservices",
     // add other admin paths here
   ];
 
@@ -79,16 +90,27 @@ const Pages = () => {
         <Route exact path='/adminhome' component={Adminhome} />
         <Route exact path='/category' component={Category} />
         <Route exact path='/aboutus' component={Aboutus} />
+        <Route exact path='/contactus' component={Contactus} />
+
+        
         <Route exact path='/userhelp' component={UserHelp} />
         <Route exact path='/adminshowevent' component={Adminshowevent} />
         <Route path='/adminupdateevent/:id' component={Adminupdateevent} />
         <Route path='/usereventupdate/:id' component={Usereventupdate} />
 
+        <Route path='/Sounds/:serviceID' component={Sounds} />
+        <Route exact path="/edituserservice/:serviceId" component={Edituserservice} />
+
         
+        <Route path="/details/:serviceID" component={Details} />
+
+
 
         <Route exact path='/adminhelp' component={Adminhelp} />
         <Route exact path='/adminservices' component={Adminservices} />
         <Route exact path='/adminticket' component={Adminticket} />
+        <Route exact path='/adminshowservices' component={Adminshowservices} />
+
         
         <Route exact path='/ownerservices' component={Ownerservices} />
         <Route exact path='/servicesadd' component={Servicesadd} />

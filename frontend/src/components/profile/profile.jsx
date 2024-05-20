@@ -53,9 +53,9 @@ const Profile = () => {
             <div className="right-panel">
                 <div className="details">
                     <h1>Hello, {userName}</h1>
-                    <p>User ID: {userId}</p>
-                    <p>Name: {userName}</p>
-                    <p>Email: {userEmail}</p>
+                   
+                    <p>Your Name: {userName}</p>
+                    <p>Your Email: {userEmail}</p>
                 </div>
                 <div className="logo12">
                     <img className="profile-logo" src="https://i.pinimg.com/originals/9f/9e/0c/9f9e0ca9207312ce6e89196b2358c809.gif" alt="Logo" />
