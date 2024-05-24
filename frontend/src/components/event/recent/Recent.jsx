@@ -1,39 +1,53 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
 import Heading from "../../common/Heading";
 import "./recent.css";
 import axios from "axios";
+import Alert from "./Alert";
 
 function Recent() {
   const [events, setEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState([]); // State for filtered events
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     axios.get('http://localhost:3001/getEvents')
       .then(response => {
         setEvents(response.data);
-        setFilteredEvents(response.data); // Initially set filtered events to all events
+        setFilteredEvents(response.data);
       })
       .catch(err => console.log(err));
   }, []);
 
   const handleSearch = (event) => {
-    const searchTerm = event.target.value.toLowerCase(); // Convert search term to lowercase for case-insensitive matching
+    const searchTerm = event.target.value.toLowerCase();
     setSearchTerm(searchTerm);
 
     if (searchTerm) {
       const filtered = events.filter(event => event.location.toLowerCase().includes(searchTerm));
       setFilteredEvents(filtered);
     } else {
-      // If search term is empty, reset filtered events to all events
       setFilteredEvents(events);
     }
   };
 
+  const addToCart = (eventId) => {
+    const userId = Cookies.get('userId');
+    axios.post('http://localhost:3001/addToCart', { userId, eventId })
+      .then(response => {
+        setShowAlert(true);
+        console.log("Item added to cart:", response.data);
+      })
+      .catch(err => {
+        console.error("Error adding item to cart:", err);
+      });
+  };
+
   return (
     <>
+      {showAlert && <Alert message="Add successful!" onClose={() => setShowAlert(false)} />}
       <section className='featured background'>
         <div className='container'>
           <div className='search-bar'>
@@ -89,7 +103,7 @@ function Recent() {
                       </button>
                       <label htmlFor=''>Price</label>
                     </div>
-                    <span>Enjoy</span>
+                    <button style={{backgroundColor:'white',color:'black'}} onClick={() => addToCart(event._id)}>Add to Cart</button>
                   </div>
                 </div>
               ))

@@ -11,8 +11,8 @@
   .formclass {
     margin-top: 40px;
     margin-bottom: 40px;
-    width:500px;
-    height:520px;
+    width:700px;
+    height:720px;
     background-image: url('https://media1.giphy.com/media/r7syqIxIQSFRZZB2CC/giphy.gif?cid=6c09b952ndty1vx5285cbrx8n4qbpt5n6ojfvppwh1m89qzo&ep=v1_internal_gif_by_id&rid=giphy.gif&ct=s');
     background-size: cover;
     background-position: center;
@@ -58,3 +58,4 @@
   cursor: pointer;
 }
   
+

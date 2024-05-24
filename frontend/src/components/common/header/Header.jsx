@@ -42,7 +42,7 @@ const Header = () => {
                 <Link to="/contactus">Contact Us</Link>
               </li>
               <li style={{ marginRight: "50px" }}>
-                <a href="/aboutus">
+                <a href="/cart">
                   <img style={{ width: "75px", height: "50px" }} src="https://static.vecteezy.com/system/resources/previews/019/787/018/non_2x/shopping-cart-icon-shopping-basket-on-transparent-background-free-png.png" alt="" />
                 </a>
               </li>

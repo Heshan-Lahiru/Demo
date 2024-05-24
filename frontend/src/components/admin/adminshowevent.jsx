@@ -2,12 +2,21 @@ import React, { useEffect, useState } from "react";
 import Heading from "../common/Heading";
 import "./adminshowevent.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { Link,useHistory } from "react-router-dom";
 
 function AdminShowEvent() {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]); // State for filtered events
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
+  const userId = Cookies.get('userId');
+  const history = useHistory();
+  useEffect(() => {
+    // Check if userId is not the specific value, redirect to login
+    if (userId !== '6642bb495838288def6d908d') {
+      history.push('/login');
+    }
+  }, [userId, history]);
 
   useEffect(() => {
     fetchEvents();

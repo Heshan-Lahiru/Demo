@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import "./home.css";
+import axios from 'axios';
+
 import Card from './card';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts';
@@ -51,7 +53,7 @@ const BarsDataset = () => (
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const images = [
+  const imagess = [
     'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/concert-band-instagram-post-template-design-2313896398b4a525c99a560923d17f61_screen.jpg?ts=1567524012',
     'https://marketplace.canva.com/EAE2uJqWJv4/1/0/1600w/canva-dimmed-photocentric-music-concert-instagram-post-Jc8iaezfNtM.jpg',
     'https://i.ytimg.com/vi/MC3_gLUESRw/maxresdefault.jpg',
@@ -59,11 +61,11 @@ const HomePage = () => {
   ];
 
   const nextSlide = () => {
-    setCurrentSlide(prevSlide => (prevSlide === images.length - 1 ? 0 : prevSlide + 1));
+    setCurrentSlide(prevSlide => (prevSlide === imagess.length - 1 ? 0 : prevSlide + 1));
   };
 
   const prevSlide = () => {
-    setCurrentSlide(prevSlide => (prevSlide === 0 ? images.length - 1 : prevSlide - 1));
+    setCurrentSlide(prevSlide => (prevSlide === 0 ? imagess.length - 1 : prevSlide - 1));
   };
 
   // Automatically move to the next slide every second
@@ -88,6 +90,22 @@ const HomePage = () => {
     { stars: 5, comment: "Absolutely amazing!", image: "https://t3.ftcdn.net/jpg/05/61/43/26/360_F_561432620_ghqin7jE48RP4B6JrOpCpio536LOeTVC.jpg" }
   ]);
 
+
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  const fetchImages = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/images');
+      setImages(response.data);
+    } catch (error) {
+      console.error('Error fetching images:', error);
+    }
+  };
+
   return (
     <div>
       <div className="video-a">
@@ -102,7 +120,7 @@ const HomePage = () => {
               <img src="https://ragsdalemartin.com/wp-content/uploads/2020/07/white-google-logo.png" alt="" />
             </div>
             {!isUserLoggedIn && (
-              <button style={{ backgroundColor: '#E00947' }} className="register-button">
+              <button style={{ backgroundColor: '#E00947' }} className="register-button1">
                 <Link to="/register" style={{ textDecoration: 'none', color: 'white' }}>
                   Register
                 </Link>
@@ -128,64 +146,69 @@ const HomePage = () => {
         <hr style={{ marginBottom: '100px' }} />
 
         <div style={{ marginTop: '150px', marginBottom: '150px' }} className="card-one">
+        <a href='/event'>
           <Card
             title="Musical Shows"
             description="Enjoy with us"
             image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/online-music-show-ad-design-template-3a03ca44bd25236064b9d678170b15ba_screen.jpg?ts=1614840817"
-          />
-          <Card
+          /></a>
+         <a href='/category'>  <Card
             title="Light Services"
             description="Let's follow"
             image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1yC-B4qZE9tIVZV959z4ZnEbZReXa1WlZb5cnP90bHQ&s"
-          />
-          <Card
+          /></a>
+         <a href='/category'>   <Card
             title="Sounds"
             description="Dj party"
             image="https://img.freepik.com/free-psd/psd-club-dj-party-flyer-social-media-post-template_505751-3273.jpg"
-          />
-          <Card
+          /></a>
+          <a href='/event'>  <Card
             title="Carnival"
             description="Family Pack"
             image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/carnival-party-instagram-post-advertisement-design-template-41ad300f78a901319ffd6ce335342e03_screen.jpg?ts=1582404551"
-          />
+          /></a>
         </div>
 
         <div style={{ marginTop: '150px', marginBottom: '150px' }} className="card-one">
-          <Card
+        <a href='/event'>    <Card
             title="Musical Shows"
             description="Enjoy with us"
             image="https://storage.pixteller.com/designs/designs-images/2019-03-06/05/social-media-post-wording-music-1-5c7f3d228d3f5.png"
-          />
-          <Card
+          /></a>
+        <a href='/category'>    <Card
             title="Light Services"
             description="Let's follow"
             image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/music-concert-instagram-post-design-template-1ffb8e6f948c0b56d8ebe874fdadcdcd_screen.jpg?ts=1690648606"
-          />
-          <Card
+          /></a>
+         <a href='/category'>   <Card
             title="Sounds"
             description="Dj party"
             image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/music-party-social-media-templates-design-6c39fdf8125ae780da35ec09a0af438e_screen.jpg?ts=1641112731"
-          />
-          <Card
+          /></a>
+          <a href='/event'>  <Card
             title="Carnival"
             description="Family Pack"
             image="https://img.freepik.com/premium-psd/urban-live-concert-flyer-music-social-media-post-template_160623-329.jpg"
-          />
+          /></a>
         </div>
 
+
         <center>
+          <p style={{marginBottom:'130px'}}>You Can Upload Post for your Event</p>
           <div className="image-row">
-            <img style={{ marginRight: '140px', maxWidth: '100%' }} src="../images/my.gif" alt="" />
-            <img style={{ marginRight: '140px', maxWidth: '100%' }} src="../images/Event now.gif" alt="" />
-            <img style={{ maxWidth: '100%' }} src="../images/Event now (1).gif" alt="" />
-          </div>
+          {images.map((image, index) => (
+          <img style={{ maxWidth: '100%',marginRight:'70px' }} key={index} src={`./images/event/${image.filename}`} alt={`Image ${index}`} />
+        ))}
+                 </div>
         </center>
+
+
         <center><p style={{ fontSize: '1.5rem', marginTop: '200px', marginBottom: '200px' }}>It's a monthly event coming to SL, that aims to connect different universes and cultures, in a single space. Here you will find your most loved designers and meet new talented designers of the most varied types, styles and themes.</p></center>
       </div>
 
       <div className="slideshow">
         <button className="prev" onClick={prevSlide}>‹</button>
-        <img src={images[currentSlide]} alt={`Slide ${currentSlide + 1}`} className="slide" />
+        <img src={imagess[currentSlide]} alt={`Slide ${currentSlide + 1}`} className="slide" />
         <button className="next" onClick={nextSlide}>›</button>
       </div>
 

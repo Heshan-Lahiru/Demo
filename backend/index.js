@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const FormDataModel = require('./models/FormData');
 const EventaddModel = require('./models/Eventadd');
 const ServiceModel = require('./models/ServiceModel');
+
 const SoundModel = require('./models/SoundModel');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
@@ -26,20 +27,20 @@ app.use(cors({}));
 app.use(express.static('public'));
 
 app.use(session({
-  secret: 'your_secret_key_here', // Replace with a strong, random secret key
+  secret: 'your_secret_key_here', 
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Set to true for https in production
+  cookie: { secure: false } 
 }));
 
 
 
-// Connect to MongoDB Atlas
+// Connect MongoDB
 mongoose.connect(process.env.MONGODB_URI)
  
 .then(() => {
     console.log('MongoDB connected');
-    // Start the server after successfully connecting to MongoDB
+    
     const PORT = process.env.PORT || 3001;
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
@@ -47,15 +48,15 @@ mongoose.connect(process.env.MONGODB_URI)
   })
   .catch(err => {
     console.error('MongoDB connection error:', err);
-    process.exit(1); // Exit the process if unable to connect to MongoDB
+    process.exit(1); 
   });
 
-// Register endpoint
+// Register
 app.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Validation
+   
     if (!validator.isEmail(email)) {
       return res.status(400).json({ error: "Invalid email format" });
     }
@@ -64,10 +65,10 @@ app.post('/register', async (req, res) => {
       return res.status(400).json({ error: "Name should only contain alphabets" });
     }
 
-    // Encrypt the password
+    
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
+    
     const newUser = await FormDataModel.create({ name, email, password: hashedPassword });
     res.status(201).json(newUser);
   } catch (error) {
@@ -76,20 +77,20 @@ app.post('/register', async (req, res) => {
   }
 });
 
-// Configure Multer for file uploads
+// Configure Multer 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '../frontend/public/images/event')); // Set destination directory
+    cb(null, path.join(__dirname, '../frontend/public/images/event')); 
   },
   filename: function (req, file, cb) {
-    cb(null, `${Date.now()}_${file.originalname}`); // Generate unique file name
+    cb(null, `${Date.now()}_${file.originalname}`); 
   }
 });
 
 
-const upload = multer({ storage: storage }); // Define the upload variable
+const upload = multer({ storage: storage }); 
 
-// Update /eventadd endpoint to handle file uploads
+// eventadd
 app.post('/eventadd', upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
@@ -98,14 +99,14 @@ app.post('/eventadd', upload.single('image'), async (req, res) => {
 
     const imageFileName = req.file.filename;
 
-    // Save event data to database with image file name and userId
+    
     const newEvent = await EventaddModel.create({
       image: imageFileName,
       category: req.body.category,
       eventName: req.body.eventName,
       location: req.body.location,
       price: req.body.price,
-      userId: req.body.userId // Save userId to the database
+      userId: req.body.userId 
     });
 
     res.status(201).json(newEvent);
@@ -116,8 +117,8 @@ app.post('/eventadd', upload.single('image'), async (req, res) => {
 });
 
 
-// Update /services endpoint to handle file uploads
-// Update /servicesadd endpoint to prevent adding duplicate services
+
+// servicesadd 
 app.post('/servicesadd', upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
@@ -127,13 +128,11 @@ app.post('/servicesadd', upload.single('image'), async (req, res) => {
     const imageFileName = req.file.filename;
     const { name, userId } = req.body;
 
-    // Check if the service with the same name already exists for the user
     const existingService = await ServiceModel.findOne({ name, userId });
     if (existingService) {
       return res.status(400).json({ error: "Service with the same name already exists" });
     }
 
-    // Save service data to the database with image file name and userId
     const newService = await ServiceModel.create({
       name,
       image: imageFileName,
@@ -152,12 +151,12 @@ app.post('/servicesadd', upload.single('image'), async (req, res) => {
 
  
 
-// Login endpoint
+// Login 
 app.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find user by email
+    
     const user = await FormDataModel.findOne({ email });
 
     if (!user) {
@@ -173,7 +172,7 @@ app.post('/login', async (req, res) => {
     
     req.session.userId = user._id;
 
-    // Send user's name, email, and ID in the response
+    
     res.json({ message: "Login successful", userId: user._id, name: user.name, email: user.email });
   } catch (error) {
     console.error('Error logging in:', error);
@@ -195,7 +194,7 @@ app.delete('/deleteUser/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Delete the user from the 'users' collection
+   
     const deletedUser = await UserModel.findByIdAndDelete(userId);
 
     if (!deletedUser) {
@@ -213,12 +212,12 @@ app.delete('/deleteUser/:userId', async (req, res) => {
 
 
 
-// Delete Event Endpoint
+// Delete Event
 app.delete('/deleteEvent/:id', async (req, res) => {
   try {
     const eventId = req.params.id;
 
-    // Find the event by ID and delete it
+   
     const deletedEvent = await EventaddModel.findByIdAndDelete(eventId);
 
     if (!deletedEvent) {
@@ -282,14 +281,14 @@ app.put('/updateEvent/:id', upload.single('image'), async (req, res) => {
     const eventId = req.params.id;
     const { category, eventName, location, price } = req.body;
 
-    // Check if image file was uploaded
+    
     if (!req.file) {
       return res.status(400).json({ error: "Image file is required" });
     }
 
-    const imageFileName = req.file.filename; // Get the uploaded image file name
+    const imageFileName = req.file.filename; 
 
-    // Find the event by ID
+    
     const existingEvent = await EventaddModel.findById(eventId);
 
     if (!existingEvent) {
@@ -303,10 +302,10 @@ app.put('/updateEvent/:id', upload.single('image'), async (req, res) => {
     existingEvent.location = location;
     existingEvent.price = price;
 
-    // Save the updated event
+   
     const updatedEvent = await existingEvent.save();
 
-    res.json(updatedEvent);  // Respond with the updated event
+    res.json(updatedEvent);  
   } catch (error) {
     console.error('Error updating event:', error);
     res.status(500).json({ error: 'Internal server error' });
@@ -319,7 +318,7 @@ app.post('/addSoundService', upload.single('image'), async (req, res) => {
   try {
     const { name, location, price, userID, serviceID } = req.body;
 
-    console.log('Received data:', req.body); // Debugging log
+    console.log('Received data:', req.body); 
 
     if (!req.file) {
       return res.status(400).json({ error: "Image file is required" });
@@ -327,14 +326,14 @@ app.post('/addSoundService', upload.single('image'), async (req, res) => {
 
     const imageFileName = req.file.filename;
 
-    // Save sound service data to database with image file name, userId, and serviceId
+   
     const newSoundService = await SoundModel.create({
       image: imageFileName,
       name,
       location,
       price,
-      userId: userID, // Save userID to the database
-      serviceId: serviceID // Save serviceID to the database
+      userId: userID, 
+      serviceId: serviceID
     });
 
     res.status(201).json(newSoundService);
@@ -356,13 +355,12 @@ app.get('/getSoundServices', async (req, res) => {
 
 
 
-// Assuming you have a SoundModel defined somewhere in your backend
+//  SoundModel defined
 
 app.get('/onlyusersounds/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    // Query the database to find sound services associated with the provided user ID
     const userSoundServices = await SoundModel.find({ userId });
 
     res.status(200).json(userSoundServices);
@@ -376,7 +374,6 @@ app.delete('/deleteSoundService/:serviceId', async (req, res) => {
   try {
     const serviceId = req.params.serviceId;
 
-    // Delete the sound service from the database based on its ID
     await SoundModel.findByIdAndDelete(serviceId);
 
     res.status(200).json({ message: 'Sound service deleted successfully' });
@@ -388,14 +385,13 @@ app.delete('/deleteSoundService/:serviceId', async (req, res) => {
 
 
 
-// Assuming you already have routes set up for updating sound services
 
 app.put('/updateSoundService/:serviceId', upload.single('image'), async (req, res) => {
   try {
     const { name, location, price } = req.body;
     const { serviceId } = req.params;
 
-    console.log('Received data:', req.body); // Debugging log
+    console.log('Received data:', req.body); 
 
     if (!req.file) {
       return res.status(400).json({ error: "Image file is required" });
@@ -403,11 +399,10 @@ app.put('/updateSoundService/:serviceId', upload.single('image'), async (req, re
 
     const imageFileName = req.file.filename;
 
-    // Update sound service data in the database with new values
     const updatedSoundService = await SoundModel.findOneAndUpdate(
       { _id: serviceId },
       { $set: { name, location, price, image: imageFileName } },
-      { new: true } // To return the updated document
+      { new: true } 
     );
 
     if (!updatedSoundService) {
@@ -420,3 +415,132 @@ app.put('/updateSoundService/:serviceId', upload.single('image'), async (req, re
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
+app.post('/addToCart', async (req, res) => {
+  try {
+    const { userId, eventId } = req.body;
+
+    const CartItem = require('./models/CartItem');
+
+    const existingCartItem = await CartItem.findOne({ userId, eventId });
+
+    if (existingCartItem) {
+      existingCartItem.quantity += 1;
+      await existingCartItem.save();
+      res.status(200).json({ message: 'Item quantity updated in cart' });
+    } else {
+      const newCartItem = new CartItem({ userId, eventId });
+      await newCartItem.save();
+      res.status(201).json({ message: 'Item added to cart successfully' });
+    }
+  } catch (error) {
+    console.error('Error adding item to cart:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+const CartItems = require('./models/CartItem');
+
+app.get('/getUserCart/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const userCartEvents = await CartItems.find({ userId });
+    res.status(200).json(userCartEvents);
+  } catch (error) {
+    console.error('Error fetching user cart events:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+const Event = require('./models/Eventadd');
+
+// event details by event ID
+app.get('/getEventDetails/:eventId', async (req, res) => {
+  try {
+    const eventId = req.params.eventId;
+    
+    const event = await Event.findById(eventId);
+    
+    if (!event) {
+      return res.status(404).json({ error: 'Event not found' });
+    }
+    
+   
+    res.status(200).json(event);
+  } catch (error) {
+    console.error('Error fetching event details:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+// remove item from cart
+app.delete('/removeFromCart/:itemId', async (req, res) => {
+  try {
+    const { itemId } = req.params;
+    await CartItems.findByIdAndDelete(itemId);
+    res.status(200).json({ message: 'Item removed from cart' });
+  } catch (error) {
+    console.error('Error removing item from cart:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+const postadd = require('./models/Post');
+
+app.post('/uploadpost', upload.single('image'), async (req, res) => {
+  try {
+    const image = new postadd({
+      filename: req.file.filename
+    });
+
+    await image.save();
+
+    res.status(201).json(image);
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+app.get('/images', async (req, res) => {
+  try {
+    const images = await postadd.find({}, 'filename'); 
+    res.json(images);
+  } catch (error) {
+    console.error('Error fetching images:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+app.get('/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const imagePath = path.join(__dirname, 'uploads', filename); 
+
+  fs.access(imagePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      console.error('Image not found:', err);
+      return res.status(404).json({ error: 'Image not found' });
+    }
+
+    res.sendFile(imagePath);
+  });
+});
+
+app.delete('/images/:id', async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+    const deletedPost = await postadd.findByIdAndDelete(postId);
+
+    if (!deletedPost) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json({ message: 'Post deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+

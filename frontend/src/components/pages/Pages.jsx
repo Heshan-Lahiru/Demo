@@ -12,7 +12,7 @@ import Usercanseehimticket from "../ticket/usercanseehimticket";
 
 //Event
 import Event from "../event/event";
-
+import Cart from "../event/cart";
 
 //services
 import Category from "../services/category";
@@ -53,6 +53,9 @@ import Adminticket from "../admin/adminticket";
 import Adminhome from "../admin/adminhome";
 import Adminshowevent from "../admin/adminshowevent";
 import Adminshowservices from "../admin/adminshowservices";
+import Post from "../admin/post";
+import Adminpostshow from "../admin/adminpostshow";
+import Editpost from "../admin/editpost";
 
 
 
@@ -68,6 +71,9 @@ const Pages = () => {
     "/adminservices",
     "/adminticket",
     "/adminshowservices",
+    "/post",
+    "/adminpostshow",
+    "/editpost"
     // add other admin paths here
   ];
 
@@ -79,6 +85,8 @@ const Pages = () => {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/event' component={Event} />
+        <Route exact path='/cart' component={Cart} />
+
         <Route exact path='/eventadd' component={Eventadd} />
         <Route exact path='/profile' component={Profile} />
         <Route exact path='/ownerevents' component={Ownerevents} />
@@ -110,7 +118,11 @@ const Pages = () => {
         <Route exact path='/adminservices' component={Adminservices} />
         <Route exact path='/adminticket' component={Adminticket} />
         <Route exact path='/adminshowservices' component={Adminshowservices} />
+        <Route exact path='/post' component={Post} />
+        <Route exact path='/adminpostshow' component={Adminpostshow} />
+        <Route exact path='/editpost/:postId' component={Editpost} />
 
+        
         
         <Route exact path='/ownerservices' component={Ownerservices} />
         <Route exact path='/servicesadd' component={Servicesadd} />

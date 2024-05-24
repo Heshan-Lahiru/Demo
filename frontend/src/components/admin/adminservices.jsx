@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
@@ -13,6 +13,13 @@ const ServiceAdd = () => {
   const [submissionError, setSubmissionError] = useState("");
   const history = useHistory();
   const userId = Cookies.get('userId');
+
+  useEffect(() => {
+    // Check if userId is not the specific value, redirect to login
+    if (userId !== '6642bb495838288def6d908d') {
+      history.push('/login');
+    }
+  }, [userId, history]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -97,7 +104,7 @@ const ServiceAdd = () => {
           <h1>Hello Admin</h1>
           <hr />
         </div>
-
+<center>
         <form className="formclass" onSubmit={handleSubmit} encType="multipart/form-data">
           <div>
             <label htmlFor="image">Image:</label>
@@ -118,7 +125,7 @@ const ServiceAdd = () => {
               style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
             >
               <option value="">Select a service name</option>
-              <option value="sounds">Sounds</option>
+              <option value="Service">Service</option>
              
             </select>
             {nameError && <p className="error">{nameError}</p>}
@@ -138,7 +145,7 @@ const ServiceAdd = () => {
             Submit
           </button>
           {submissionError && <p style={{color:'red'}} className="error">service with the same name already exists</p>}
-        </form>
+        </form></center>
       </div>
     </div>
   );

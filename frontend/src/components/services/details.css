@@ -20,7 +20,9 @@
     
     width: 60%; /* Individual card width (adjust based on desired layout) */
     margin: 10px; /* Spacing between cards */
-    background-color: #fff; /* White background */
+    background-image: url('https://storage.needpix.com/rsynced_images/background-images-3924442_1280.jpg'); /* White background */
+    background-size: cover; 
+    background-repeat: no-repeat;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle 3D shadow */
     border-radius: 5px; /* Rounded corners */
     overflow: hidden; /* Clip overflowing content */

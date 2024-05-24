@@ -23,9 +23,10 @@
   justify-content: center;
 }
 
-.register-button {
+.register-button1 {
   display: block;
   margin: 20px auto;
+  
 }
 
 .content-box {
@@ -58,9 +59,7 @@
   height: auto;
 }
 
-/* Media Queries for Responsive Design */
 
-/* For screens smaller than 768px */
 @media (max-width: 767px) {
   .image-row {
     flex-wrap: wrap;
@@ -73,19 +72,17 @@
   }
 }
 
-/* For screens between 768px and 1023px */
 @media (min-width: 768px) and (max-width: 1023px) {
   .image-row img {
-    width: 15%; /* Display two images per row */
+    width: 15%; 
     margin-right: 0px;
     margin-bottom: 10px;
   }
 }
 
-/* For screens larger than 1023px */
 @media (min-width: 1024px) {
   .image-row img {
-    width: 30%; /* Display three images per row */
+    width: 30%; 
     margin-right: 10px;
     margin-bottom: 10px;
   }
@@ -93,13 +90,12 @@
 
 @media (max-width: 1500px) {
   .image-row img {
-    width: 20%; /* Display three images per row */
+    width: 20%;
     margin-right: 10px;
     margin-bottom: 10px;
   }
 }
 
-/* home.css */
 
 .card-one {
   display: flex;
@@ -124,25 +120,24 @@
   padding: 10px;
 }
 
-/* Add more CSS styling as needed */
+
 .slideshow-container {
-  width: 50%; /* Set the width of the slideshow container */
-  height: 50%; /* Set the height of the slideshow container */
-  margin: 0 auto; /* Center the slideshow horizontally */
-  overflow: hidden; /* Hide overflowing content */
+  width: 50%; 
+  height: 50%; 
+  margin: 0 auto; 
+  overflow: hidden; 
 }
 
 .slides {
-  display: flex; /* Display slides in a row */
-  transition: transform 0.5s ease; /* Add smooth transition effect */
+  display: flex; 
+  transition: transform 0.5s ease; 
 }
 
 .slides img {
-  width: 100%; /* Make images fill the slide container */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%; 
+  height: auto; 
 }
 
-/* home.css */
 
 .content-box {
   width: 80%;
@@ -163,14 +158,12 @@
 }
 
 .decoration-line {
-  height: 100px; /* Adjust height as needed */
+  height: 100px; 
   width: 2px;
   background-color: black;
   margin: 0 auto;
 }
 
-/* Add more CSS styling as needed */
-/* home.css */
 
 .customer-ratings {
   width: 80%;
@@ -207,4 +200,3 @@
   margin-top: 10px;
 }
 
-/* Add more CSS styling as needed */

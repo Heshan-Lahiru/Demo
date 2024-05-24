@@ -4,61 +4,81 @@ import './adminhome.css';
 
 const Adminhome = () => {
   const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]); // State for filtered users
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [expandedItemId, setExpandedItemId] = useState(null);
 
   useEffect(() => {
-    fetchUsers();
+    const userId = getCookie('userId');
+    if (userId !== '6642bb495838288def6d908d') {
+      window.location.href = '/login'; // Redirect to login page if userId is not the specific value
+    } else {
+      fetchUsers();
+    }
   }, []);
 
   const fetchUsers = () => {
     axios.get('http://localhost:3001/getUsers')
       .then(response => {
         setUsers(response.data);
-        setFilteredUsers(response.data); // Initially set filtered users to all users
+        setFilteredUsers(response.data);
       })
       .catch(err => console.log(err));
   };
 
   const toggleDetails = (userId) => {
     if (expandedItemId === userId) {
-      setExpandedItemId(null); // Collapse details if already expanded
+      setExpandedItemId(null);
     } else {
-      setExpandedItemId(userId); // Expand details for the clicked user
+      setExpandedItemId(userId);
     }
   };
 
   const handleDelete = (userId) => {
     axios.delete(`http://localhost:3001/deleteUser/${userId}`)
       .then(() => {
-        // Update the users list after successful deletion
         fetchUsers();
       })
       .catch(err => console.log(err));
   };
 
   const handleSearch = (event) => {
-    const searchTerm = event.target.value.toLowerCase(); // Convert search term to lowercase for case-insensitive matching
-    const filtered = users.filter(user => user.name.toLowerCase().includes(searchTerm)); // Filter users based on case-insensitive search
+    const searchTerm = event.target.value.toLowerCase();
+    const filtered = users.filter(user => user.name.toLowerCase().includes(searchTerm));
     setFilteredUsers(filtered);
+  };
+
+  const handleLogout = () => {
+    // Clear user session, e.g., by removing the cookie
+    document.cookie = 'userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    // Redirect to the login page
+    window.location.href = '/login';
+  };
+
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
   };
 
   return (
     <div className="admin-panel">
       <div className="left-panel">
-      <button><a style={{ color: 'white' }} href='/adminhome'>Users</a></button>
-          <button><a style={{ color: 'white' }} href='/adminticket'>Ticket Booking</a></button>
-          <button><a style={{ color: 'white' }} href='/adminservices'>Services</a></button>
-          <button><a style={{ color: 'white' }} href='/adminshowservices'>Show Services</a></button>
-          <button><a style={{ color: 'white' }} href='/adminshowevent'>Events</a></button>
-          <button><a style={{ color: 'white' }} href='/adminhelp'>Help</a></button>
+        <button><a style={{ color: 'white' }} href='/adminhome'>Users</a></button>
+        <button><a style={{ color: 'white' }} href='/adminticket'>Ticket Booking</a></button>
+        <button><a style={{ color: 'white' }} href='/adminservices'>Services</a></button>
+        <button><a style={{ color: 'white' }} href='/adminshowservices'>Show Services</a></button>
+        <button><a style={{ color: 'white' }} href='/adminshowevent'>Events</a></button>
+        <button><a style={{ color: 'white' }} href='/adminhelp'>Help</a></button>
       </div>
-      <div className="right-panel"  style={{ flexGrow: 1, overflow: 'auto'  }}>
+      <div className="right-panel" style={{ flexGrow: 1, overflow: 'auto' }}>
         <div className="top-right-section">
           <div className="blue-box">
             <input type="text" placeholder="Search by name..." onChange={handleSearch} />
+            <hr></hr>
+            <button style={{ marginTop: '15px' }} onClick={handleLogout}>Log out</button>
           </div>
-          <h1>Hello Admin</h1>
+          <h1 style={{ color: 'blue' }}>Hello Admin</h1>
+          <h1>Registered Users</h1>
           <hr />
         </div>
         <div className="right-side">
@@ -71,7 +91,7 @@ const Adminhome = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredUsers.length > 0 ? ( // Display filtered users if there are any
+              {filteredUsers.length > 0 ? (
                 filteredUsers.map(user => (
                   <tr key={user._id}>
                     <td>{user._id}</td>
@@ -89,7 +109,7 @@ const Adminhome = () => {
                     </td>
                   </tr>
                 ))
-              ) : ( // Display a message if no users match the search
+              ) : (
                 <tr>
                   <td colSpan="4">No users found for your search.</td>
                 </tr>
@@ -102,4 +122,4 @@ const Adminhome = () => {
   );
 };
 
-export default Adminhome
+export default Adminhome;

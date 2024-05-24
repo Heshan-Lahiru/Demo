@@ -101,7 +101,7 @@ const Ownerservices = () => {
                       >
                         Update
                       </button>
-                      <button onClick={() => handleDelete(service._id)}>Delete</button>
+                      <button style={{backgroundColor:'#E00947'}} onClick={() => handleDelete(service._id)}>Delete</button>
                     </div>
                   </div>
                 ))

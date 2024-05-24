@@ -51,12 +51,17 @@ const Profile = () => {
                 <button onClick={handleLogout}>Log out</button>
             </div>
             <div className="right-panel">
-                <div className="details">
-                    <h1>Hello, {userName}</h1>
-                   
-                    <p>Your Name: {userName}</p>
-                    <p>Your Email: {userEmail}</p>
-                </div>
+
+
+            <div className="details">
+      <h1>Hello, {userName}</h1>
+      <div className="info">
+        <p><strong>My Name:</strong> {userName}</p>
+        <p><strong>My Email:</strong> {userEmail}</p>
+      </div>
+    </div>
+
+
                 <div className="logo12">
                     <img className="profile-logo" src="https://i.pinimg.com/originals/9f/9e/0c/9f9e0ca9207312ce6e89196b2358c809.gif" alt="Logo" />
                 </div>

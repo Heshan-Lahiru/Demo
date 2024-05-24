@@ -142,20 +142,24 @@ const Eventadd = () => {
       
         <form class="formclass" onSubmit={handleSubmit} encType="multipart/form-data">
           <div>
-            <label htmlFor="image">Image:</label>
+          <label htmlFor="image">Image:</label>
             <input
               type="file"
               id="image"
               name="image"
               onChange={handleImageChange}
+              
             />
+           
           </div>
           <div>
-            <label htmlFor="category">Category:</label>
+            <label htmlFor="category">Date:</label>
             <input
               type="text"
               id="category"
               name="category"
+              placeholder='DD/MM/YYYY'
+              style={{width:'400px'}}
               value={category}
               onChange={(event) => setCategory(event.target.value)}
             />
@@ -163,7 +167,10 @@ const Eventadd = () => {
           </div>
           <div>
             <label htmlFor="eventName">Event Name:</label>
+            <label style={{fontSize:'0.9rem'}}>musical | carnival | festival | party | food festival</label>
+
             <input
+             style={{width:'400px'}}
               type="text"
               id="eventName"
               name="eventName"
@@ -173,8 +180,9 @@ const Eventadd = () => {
             {eventNameError && <p className="error">{eventNameError}</p>}
           </div>
           <div>
-            <label htmlFor="location">Location:</label>
+            <label htmlFor="location">Location (Cities only):</label>
             <input
+             style={{width:'400px'}}
               type="text"
               id="location"
               name="location"
@@ -186,7 +194,8 @@ const Eventadd = () => {
           <div>
             <label htmlFor="price">Price:</label>
             <input
-              type="text"
+             style={{width:'400px'}}
+              type="number"
               id="price"
               name="price"
               value={price}

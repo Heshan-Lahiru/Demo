@@ -25,6 +25,7 @@ const Ownerevents = () => {
     try {
       const response = await axios.get(`http://localhost:3001/onlyuserevents/${userId}`);
       setEvents(response.data);
+      
       setLoading(false);
     } catch (error) {
       console.error('Error fetching events:', error);

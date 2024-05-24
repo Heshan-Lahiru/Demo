@@ -44,7 +44,7 @@ const Home = () => {
               <h2>{service.name}</h2>
               <p>{service.details}</p>
               
-              <Link to={`/details/${service._id}`}>View Details</Link>
+              <Link to={`/details/${service._id}`}>View All</Link>
 
             </div>
           </div>

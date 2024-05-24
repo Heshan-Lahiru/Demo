@@ -4,6 +4,7 @@ import './details.css'; // Import your CSS file
 
 const Details = () => {
   const [soundServices, setSoundServices] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchSoundServices = async () => {
@@ -18,19 +19,28 @@ const Details = () => {
     fetchSoundServices();
   }, []);
 
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredServices = soundServices.filter((soundService) =>
+    soundService.location.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="show-sounds-s">
-              <img style={{width:'100%', height:'500px'}} src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg" alt="Nature" className="image" />
-              <h1 style={{marginTop:'100px', marginBottom:'100px'}}><i>All Services</i></h1>
+      <img style={{ width: '100%', height: '500px' }} src="https://images.pexels.com/photos/169198/pexels-photo-169198.jpeg" alt="Nature" className="image" />
+      <h1 style={{ marginTop: '100px', marginBottom: '100px' }}>
+        <i> Services</i> <input style={{ marginLeft: '50px', backgroundColor: 'silver',borderRadius:'50px' }} type='text' placeholder='Search by location' onChange={handleSearch} />
+      </h1>
       <div className="sound-cards">
-        {soundServices.map((soundService) => (
+        {filteredServices.map((soundService) => (
           <div className="sound-card" key={soundService._id}>
             <img src={`../images/event/${soundService.image}`} alt={soundService.name} />
             <h3>{soundService.name}</h3>
             <p>{soundService.location}</p>
             <p>Price: LKR{soundService.price}/=</p>
-            <button style={{backgroundColor:'#E00947'}}>Book Now</button>
-            {/* Add a button for user interaction if needed */}
+            <button style={{ backgroundColor: '#E00947' }}>Book Now</button>
           </div>
         ))}
       </div>
