@@ -86,21 +86,29 @@ function Recent() {
                     <h4>{event.eventName}</h4>
                     <p>
                       <i className='fa fa-location-dot'></i> {event.location}
+                     
                     </p>
+                    <p> {event.userId}</p>
                   </div>
                   <div className='button flex'>
                     <div>
-                      <button style={{ backgroundColor: '#E00947', color: 'white' }} className='btn2'>
-                        <Link 
-                          style={{ color: 'white' }} 
-                          to={{
-                            pathname: `/userpageticketbook`,
-                            state: { price: event.price }
-                          }}
-                        >
-                          LKR.{event.price}/=
-                        </Link>
-                      </button>
+                    <button style={{ backgroundColor: '#E00947', color: 'white' }} className='btn2'>
+                          <Link 
+                            style={{ color: 'white' }} 
+                            to={{
+                              pathname: `/userpageticketbook`,
+                              state: { 
+                                price: event.price,
+                                image: event.image ,
+                                location:event.location,
+                                category:event.category,
+                                userId:event.userId
+                              }
+                            }}
+                          >
+                            LKR.{event.price}/=
+                          </Link>
+                        </button>
                       <label htmlFor=''>Price</label>
                     </div>
                     <button style={{backgroundColor:'white',color:'black'}} onClick={() => addToCart(event._id)}>Add to Cart</button>

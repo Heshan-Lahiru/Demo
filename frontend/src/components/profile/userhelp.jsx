@@ -39,7 +39,7 @@ const UserHelp = () => {
       </div>
       <div className="right">
 <div style={{display:'grid'}}>
-  <div style={{marginBottom:'200px',marginLeft:'50px'}}>
+  <div style={{marginBottom:'200px',marginLeft:'1%'}}>
       <center> <p >
         Using our website is simple and intuitive. 
         Start by navigating to the homepage, where 
@@ -55,8 +55,8 @@ const UserHelp = () => {
             designed to meet all your needs.
         </p></center> 
         </div>
-        <div style={{display:'flex',gap:'30px',marginLeft:'620px'}}>
-          <button style={{backgroundColor:'#E00947'}}>FAQ</button>
+        <div style={{display:'flex',gap:'30px',marginLeft:'40%'}}>
+          <button style={{backgroundColor:'#E00947'}}><a style={{color:'white'}} href='/rate'>Add Comments</a></button>
           <button style={{backgroundColor:'#E00947'}}>Contact Support</button>
           <button style={{backgroundColor:'#E00947'}}>Report Issue</button>
         </div>

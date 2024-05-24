@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const FormDataModel = require('./models/FormData');
 const EventaddModel = require('./models/Eventadd');
 const ServiceModel = require('./models/ServiceModel');
-
+const fs = require('fs');
 const SoundModel = require('./models/SoundModel');
 const bcrypt = require('bcrypt');
 const validator = require('validator');
@@ -513,19 +513,7 @@ app.get('/images', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-app.get('/:filename', (req, res) => {
-  const filename = req.params.filename;
-  const imagePath = path.join(__dirname, 'uploads', filename); 
 
-  fs.access(imagePath, fs.constants.F_OK, (err) => {
-    if (err) {
-      console.error('Image not found:', err);
-      return res.status(404).json({ error: 'Image not found' });
-    }
-
-    res.sendFile(imagePath);
-  });
-});
 
 app.delete('/images/:id', async (req, res) => {
   const postId = req.params.id;
@@ -543,4 +531,105 @@ app.delete('/images/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+const PayModel = require('./models/Payment');
+
+
+
+app.post('/payment', async (req, res) => {
+  try {
+    const { name, mobileNumber } = req.body;
+    const paymentData = new PayModel({ name, mobileNumber });
+    await paymentData.save();
+    res.status(201).json({ message: 'Payment data saved successfully', paymentData });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// API endpoint to fetch ticket booking data
+app.get('/gettickets', async (req, res) => {
+  try {
+    const tickets = await PayModel.find();
+    res.json(tickets);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.delete('/deleteTicket/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+  
+    await PayModel.findByIdAndDelete(id);
+    res.status(200).json({ message: 'Ticket deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting ticket:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+const RatingModel = require('./models/Rating');
+
+app.post('/addRating', upload.single('image'), async (req, res) => {
+  try {
+    const { eventName, stars } = req.body;
+
+    console.log('Received data:', req.body);
+
+    if (!req.file) {
+      return res.status(400).json({ error: "Image file is required" });
+    }
+
+    const imageFileName = req.file.filename;
+
+    // Assuming you have a RatingModel for storing ratings
+    const newRating = await RatingModel.create({
+      image: imageFileName,
+      eventName,
+      stars
+    });
+
+    res.status(201).json(newRating);
+  } catch (error) {
+    console.error('Error adding rating:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// GET route to fetch ratings data
+app.get('/getratings', async (req, res) => {
+  try {
+    // Fetch ratings data from the database
+    const ratings = await RatingModel.find();
+    res.status(200).json(ratings); // Send ratings data as JSON response
+  } catch (error) {
+    console.error('Error fetching ratings:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+// Route to delete a rating by ID
+app.delete('/deleteRating/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    // Find the rating by ID and delete it
+    const deletedRating = await RatingModel.findByIdAndDelete(id);
+
+    // Check if rating exists
+    if (!deletedRating) {
+      return res.status(404).json({ error: 'Rating not found' });
+    }
+
+    // Send success response
+    res.status(200).json({ message: 'Rating deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting rating:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 

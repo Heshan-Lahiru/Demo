@@ -65,6 +65,7 @@ const Adminhome = () => {
       <div className="left-panel">
         <button><a style={{ color: 'white' }} href='/adminhome'>Users</a></button>
         <button><a style={{ color: 'white' }} href='/adminticket'>Ticket Booking</a></button>
+        <button><a style={{ color: 'white' }} href='/adminrate'>Rates</a></button>
         <button><a style={{ color: 'white' }} href='/adminservices'>Services</a></button>
         <button><a style={{ color: 'white' }} href='/adminshowservices'>Show Services</a></button>
         <button><a style={{ color: 'white' }} href='/adminshowevent'>Events</a></button>

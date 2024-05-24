@@ -26,6 +26,8 @@ import Login from "../signup/login";
 import Aboutus from "../home/aboutus";
 import Contactus from "../home/contactus";
 
+
+
 import Home from "../home/home";
 
 //user profile
@@ -36,7 +38,7 @@ import Ownerevents from "../profile/ownerevents";
 import Ownerservices from "../profile/ownerservices";
 import Servicesadd from "../profile/servicesadd";
 import Usereventupdate from "../profile/usereventupdate";
-
+import Rate from "../profile/rate";
 import Sounds from "../profile/Sounds";
 import Edituserservice from "../profile/edituserservice";
 
@@ -56,6 +58,8 @@ import Adminshowservices from "../admin/adminshowservices";
 import Post from "../admin/post";
 import Adminpostshow from "../admin/adminpostshow";
 import Editpost from "../admin/editpost";
+import Adminrate from "../admin/adminrate";
+
 
 
 
@@ -73,7 +77,8 @@ const Pages = () => {
     "/adminshowservices",
     "/post",
     "/adminpostshow",
-    "/editpost"
+    "/editpost",
+    "/adminrate"
     // add other admin paths here
   ];
 
@@ -86,6 +91,8 @@ const Pages = () => {
         <Route exact path='/' component={Home} />
         <Route exact path='/event' component={Event} />
         <Route exact path='/cart' component={Cart} />
+        <Route exact path='/rate' component={Rate} />
+
 
         <Route exact path='/eventadd' component={Eventadd} />
         <Route exact path='/profile' component={Profile} />
@@ -121,6 +128,7 @@ const Pages = () => {
         <Route exact path='/post' component={Post} />
         <Route exact path='/adminpostshow' component={Adminpostshow} />
         <Route exact path='/editpost/:postId' component={Editpost} />
+        <Route exact path='/adminrate' component={Adminrate} />
 
         
         

@@ -8,6 +8,8 @@ import Card from './card';
 import { BarChart } from '@mui/x-charts/BarChart';
 import { axisClasses } from '@mui/x-charts';
 
+
+
 const chartSetting = {
   yAxis: [
     {
@@ -25,7 +27,7 @@ const chartSetting = {
 
 const dataset = [
   {
-    Musical: 59,
+    Musical: 45,
     Carnival: 47,
     Djparty: 86,
     festival: 21,
@@ -37,6 +39,8 @@ const dataset = [
 const valueFormatter = (value) => `${value}mm`;
 
 const BarsDataset = () => (
+
+
   <BarChart
     dataset={dataset}
     xAxis={[{ scaleType: 'band', dataKey: 'month' }]}
@@ -53,6 +57,33 @@ const BarsDataset = () => (
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  const [ratings, setRatings] = useState([]);
+
+  const [userCount, setUserCount] = useState(0);
+
+  useEffect(() => {
+    // Fetch user count from the server
+    fetch()
+      .then(response => response.json())
+      .then(data => setUserCount(data.userCount))
+      .catch(error => console.error('Error fetching user count:', error));
+  }, []);
+
+
+  useEffect(() => {
+    // Fetch ratings data from backend when component mounts
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/getratings');
+        setRatings(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []);
+  
   const imagess = [
     'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/concert-band-instagram-post-template-design-2313896398b4a525c99a560923d17f61_screen.jpg?ts=1567524012',
     'https://marketplace.canva.com/EAE2uJqWJv4/1/0/1600w/canva-dimmed-photocentric-music-concert-instagram-post-Jc8iaezfNtM.jpg',
@@ -82,13 +113,6 @@ const HomePage = () => {
     setIsUserLoggedIn(!!userId);
   }, []);
 
-  const [ratings, setRatings] = useState([
-    { stars: 5, comment: "Excellent service!", image: "https://plus.unsplash.com/premium_photo-1675080431524-3e7c85323972?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWFuJTIwZmFjZXxlbnwwfHwwfHx8MA%3D%3D" },
-    { stars: 4, comment: "Great experience!", image: "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" },
-    { stars: 5, comment: "Fantastic product!", image: "https://i0.wp.com/colinsbeautypages.co.uk/wp-content/uploads/2008/06/handsome-face.jpg" },
-    { stars: 3, comment: "Good but could improve.", image: "https://www.shutterstock.com/image-photo/close-horizontal-front-portrait-attractive-260nw-1505922530.jpg" },
-    { stars: 5, comment: "Absolutely amazing!", image: "https://t3.ftcdn.net/jpg/05/61/43/26/360_F_561432620_ghqin7jE48RP4B6JrOpCpio536LOeTVC.jpg" }
-  ]);
 
 
   const [images, setImages] = useState([]);
@@ -105,6 +129,20 @@ const HomePage = () => {
       console.error('Error fetching images:', error);
     }
   };
+  const getRandomSubset = (arr, size) => {
+    const shuffled = arr.slice().sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, size);
+};
+
+let displayRatings = [];
+if (ratings.length <= 6) {
+    // If the length is less than or equal to 6, display all ratings
+    displayRatings = ratings;
+} else {
+    // If the length is greater than 6, randomly select 6 ratings
+    displayRatings = getRandomSubset(ratings, 6);
+}
+
 
   return (
     <div>
@@ -240,18 +278,17 @@ const HomePage = () => {
       </div>
 
       <div style={{ marginBottom: '200px' }} className="customer-ratings">
-        {ratings.map((rating, index) => (
-          <div key={index} className="rating-card">
-            <div className="stars">
-              {[...Array(rating.stars)].map((_, i) => (
-                <span key={i} className="star">&#9733;</span>
-              ))}
-            </div>
-            <img src={rating.image} alt={`Customer ${index + 1}`} className="customer-image" />
-            <p className="comment">{rating.comment}</p>
-          </div>
-        ))}
-      </div>
+            {displayRatings.map((rating, index) => (
+                <div key={index} className="rating-card" style={{margin:'20px'}}>
+                    <div className="stars">
+                        {rating.stars}
+                        <span className="star">&#9733;</span>
+                    </div>
+                    <img src={`./images/event/${rating.image}`} alt="Rating Image" style={{ width: '100px', height: '100px' }} />
+                    <p className="comment">{rating.eventName}</p>
+                </div>
+            ))}
+        </div>
       <center><BarsDataset /></center>
     </div>
   );
