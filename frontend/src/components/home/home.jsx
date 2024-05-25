@@ -200,11 +200,7 @@ if (ratings.length <= 6) {
             description="Dj party"
             image="https://img.freepik.com/free-psd/psd-club-dj-party-flyer-social-media-post-template_505751-3273.jpg"
           /></a>
-          <a href='/event'>  <Card
-            title="Carnival"
-            description="Family Pack"
-            image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/carnival-party-instagram-post-advertisement-design-template-41ad300f78a901319ffd6ce335342e03_screen.jpg?ts=1582404551"
-          /></a>
+         
         </div>
 
         <div style={{ marginTop: '150px', marginBottom: '150px' }} className="card-one">
@@ -223,11 +219,7 @@ if (ratings.length <= 6) {
             description="Dj party"
             image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/music-party-social-media-templates-design-6c39fdf8125ae780da35ec09a0af438e_screen.jpg?ts=1641112731"
           /></a>
-          <a href='/event'>  <Card
-            title="Carnival"
-            description="Family Pack"
-            image="https://img.freepik.com/premium-psd/urban-live-concert-flyer-music-social-media-post-template_160623-329.jpg"
-          /></a>
+          
         </div>
 
 
