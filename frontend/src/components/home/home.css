@@ -100,7 +100,6 @@
 
 .card-one {
   display: flex;
-  justify-content: space-around;
   margin-top: 20px;
 }
 
@@ -183,9 +182,9 @@
   border-radius: 5px;
   text-align: center;
 }
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
   .customer-ratings {
-    display: none;
+    display: grid;
    
   }
   
