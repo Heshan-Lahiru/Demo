@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const validator = require('validator');
 const multer = require('multer');
 const path = require('path');
-
+const nodemailer = require('nodemailer');
 
 
 
@@ -631,5 +631,8 @@ app.delete('/deleteRating/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
+
 
 

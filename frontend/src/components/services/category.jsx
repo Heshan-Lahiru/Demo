@@ -34,7 +34,7 @@ const Home = () => {
      <p>Services play a crucial role in enhancing our daily lives and driving economic growth. They offer convenience, expertise, and efficiency, enabling individuals and businesses to focus on their core activities. From healthcare and education to financial services and technology support, these offerings improve quality of life, foster innovation, and create employment opportunities. The value of services lies in their ability to meet diverse needs, adapt to changing demands, and provide solutions that drive progress and well-being.</p><br></br>
      </center>
 </div>
-      <div  className="card-container">
+      <div  className="card-xc">
         {services.map((service) => (
           <div style={{width:'800px', marginTop:'120px',marginBottom:'120px'}} className="card" key={service._id}>
             <div className="card-image">

@@ -103,13 +103,7 @@
   justify-content: space-around;
   margin-top: 20px;
 }
-@media (max-width: 1000px) {
-  .card-one {
-    display: grid;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-}
+
 
 
 
@@ -131,9 +125,9 @@
 }
 
 
-.slideshow-container {
-  width: 50%; 
-  height: 50%; 
+.slideshow {
+  width: 40%; 
+  height: 40%; 
   margin: 0 auto; 
   overflow: hidden; 
 }
@@ -195,7 +189,17 @@
    
   }
   
-  
+}
+@media (max-width: 1000px) {
+  .card-one {
+    display: grid;
+   
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+.card{
+  margin-bottom: 50px;
+}
 }
 
 .stars {

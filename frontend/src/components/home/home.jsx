@@ -245,9 +245,9 @@ if (ratings.length <= 6) {
       </div>
 
       <div className="slideshow">
-        <button className="prev" onClick={prevSlide}>‹</button>
+       
         <img src={imagess[currentSlide]} alt={`Slide ${currentSlide + 1}`} className="slide" />
-        <button className="next" onClick={nextSlide}>›</button>
+      
       </div>
 
       <div style={{ marginTop: '200px', marginBottom: '200px' }} className="content-box">

@@ -67,6 +67,14 @@ const Userpageticketbook = ({ location }) => {
               {category ? `Date: ${category}` : "No category available"}<br />
              {/* {userId ? ` ${userId}` : "No userId available"} */}
             </label>
+            <label htmlFor="acc">Acc No:</label>
+            <input 
+              type="text" 
+              id="acc" 
+              name="acc" 
+              required 
+             
+            />
             <label htmlFor="name">Name:</label>
             <input 
               type="text" 

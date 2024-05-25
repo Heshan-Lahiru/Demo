@@ -60,6 +60,7 @@ const AdminShowServices = () => {
             <input type="text" placeholder="Search..." onChange={handleSearch} />
           </div>
           <h1>Hello Admin</h1>
+          <a href='/adminservices'>Click here to show User Services</a>
           <hr />
         </div>
         <section className="recent padding">
@@ -88,8 +89,8 @@ const AdminShowServices = () => {
                         >
                           Delete
                         </button>
+                        
                       </div>
-                      {/* Update button can be added here */}
                     </div>
                   </div>
                 ))
@@ -98,6 +99,7 @@ const AdminShowServices = () => {
               )}
             </div>
           </div>
+         
         </section>
       </div>
     </div>

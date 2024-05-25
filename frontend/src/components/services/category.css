@@ -85,12 +85,13 @@
     margin-top: 50px;
   }
   
-  .card-container {
+  .card-xc {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
   }
+ 
   
   .card {
     width: 80%;
