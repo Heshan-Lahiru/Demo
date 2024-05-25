@@ -200,7 +200,7 @@ if (ratings.length <= 6) {
             description="Dj party"
             image="https://img.freepik.com/free-psd/psd-club-dj-party-flyer-social-media-post-template_505751-3273.jpg"
           /></a>
-         
+          
         </div>
 
         <div style={{ marginTop: '150px', marginBottom: '150px' }} className="card-one">
@@ -219,7 +219,7 @@ if (ratings.length <= 6) {
             description="Dj party"
             image="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/music-party-social-media-templates-design-6c39fdf8125ae780da35ec09a0af438e_screen.jpg?ts=1641112731"
           /></a>
-          
+         
         </div>
 
 
