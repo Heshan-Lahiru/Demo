@@ -289,7 +289,12 @@ if (ratings.length <= 6) {
                 </div>
             ))}
         </div>
-      <center><BarsDataset /></center>
+      <center>
+        <div class="BarsDataset">
+        <BarsDataset />
+        </div>
+        
+        </center>
     </div>
   );
 };

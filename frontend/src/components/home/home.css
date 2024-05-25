@@ -60,6 +60,7 @@
 }
 
 
+
 @media (max-width: 767px) {
   .image-row {
     flex-wrap: wrap;
@@ -102,6 +103,15 @@
   justify-content: space-around;
   margin-top: 20px;
 }
+@media (max-width: 1000px) {
+  .card-one {
+    display: grid;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+}
+
+
 
 .card {
   width: 270px;
@@ -179,6 +189,14 @@
   border-radius: 5px;
   text-align: center;
 }
+@media (max-width: 1000px) {
+  .customer-ratings {
+    display: none;
+   
+  }
+  
+  
+}
 
 .stars {
   color: gold;
@@ -200,3 +218,11 @@
   margin-top: 10px;
 }
 
+@media (max-width: 800px) {
+  .BarsDataset {
+    display: none;
+   
+  }
+  
+  
+}

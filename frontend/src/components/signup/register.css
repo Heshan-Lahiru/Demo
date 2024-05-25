@@ -35,3 +35,27 @@
     max-width: 80%;
     height: auto;
 }
+
+
+@media (max-width: 800px) {
+    .register-image {
+        display: none;
+    }
+  
+    
+    
+    .register-form {
+        display: grid;
+        width: 40%;
+        padding: 20px;
+        margin-left: 50%;
+        margin-right: 50%;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .register-container {
+        display: none;
+       
+    }
+    
+  }
+  
