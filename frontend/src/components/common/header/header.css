@@ -1,6 +1,6 @@
 header {
   background-color: #fff;
-  height: 15vh;
+  height: auto;
   box-shadow: 0 5px 30px rgb(0 22 84 / 10%);
   padding: 14px 0;
   position: sticky;
