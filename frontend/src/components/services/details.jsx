@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './details.css'; // Import your CSS file
+import { Link } from 'react-router-dom';
 
 const Details = () => {
   const [soundServices, setSoundServices] = useState([]);
@@ -40,7 +41,23 @@ const Details = () => {
             <h3>{soundService.name}</h3>
             <p>{soundService.location}</p>
             <p>Price: LKR{soundService.price}/=</p>
-            <button style={{ backgroundColor: '#E00947' }}>Book Now</button>
+            <button style={{ backgroundColor: '#E00947', color: 'white' }} className='btn2'>
+                          <Link 
+                            style={{ color: 'white' }} 
+                            to={{
+                              pathname: `/userpageticketbook`,
+                              state: { 
+                                price: soundService.price,
+                                image: soundService.image ,
+                                location:soundService.location,
+                                category:soundService.name,
+                                userId:soundService.userId
+                              }
+                            }}
+                          >
+                         Book Now
+                          </Link>
+                        </button>
           </div>
         ))}
       </div>

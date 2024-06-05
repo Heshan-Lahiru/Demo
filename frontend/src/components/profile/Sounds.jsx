@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import { useHistory, useParams } from 'react-router-dom';
 import "./eventadd.css";
 const Sounds = () => {
-  const { serviceID } = useParams(); // Retrieve serviceID from URL
+  const { serviceID } = useParams(); 
   const [userID, setUserID] = useState('');
   const [formData, setFormData] = useState({
     name: '',
@@ -18,7 +18,6 @@ const Sounds = () => {
     const storedUserID = Cookies.get('userId');
 
     if (!storedUserID) {
-      // Redirect to login page if userID is not found in cookies
       history.push('/login');
     } else {
       setUserID(storedUserID);
@@ -26,8 +25,13 @@ const Sounds = () => {
   }, [history]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "name" && !/^[a-zA-Z\s]*$/.test(value)) {
+      return;
+    }
+    setFormData({ ...formData, [name]: value });
   };
+  
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -43,7 +47,7 @@ const Sounds = () => {
       formDataWithFile.append('price', formData.price);
       formDataWithFile.append('image', file);
       formDataWithFile.append('userID', userID);
-      formDataWithFile.append('serviceID', serviceID); // Append serviceID to the form data
+      formDataWithFile.append('serviceID', serviceID); 
 
       const response = await axios.post('http://localhost:3001/addSoundService', formDataWithFile, {
         headers: {
@@ -52,7 +56,6 @@ const Sounds = () => {
       });
 
       console.log('Sound service added:', response.data);
-      // Reset form fields after successful submission
       setFormData({
         name: '',
         location: '',
@@ -86,14 +89,24 @@ const Sounds = () => {
           placeholder="Name"
           required
         />
-        <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          placeholder="Location"
-          required
-        />
+        <select style={{width:'100%',height:'40px'}}
+  name="location"
+  value={formData.location}
+  onChange={handleChange}
+  required
+>
+  <option value="">Select Location</option>
+  <option value="Colombo">Colombo</option>
+  <option value="Kandy">Kandy</option>
+  <option value="Galle">Galle</option>
+  <option value="Matara">Matara</option>
+  <option value="Jaffna">Jaffna</option>
+  <option value="Negombo">Negombo</option>
+  <option value="Anuradhapura">Anuradhapura</option>
+  <option value="Polonnaruwa">Polonnaruwa</option>
+  <option value="Trincomalee">Trincomalee</option>
+  
+</select>
         <input
           type="number"
           name="price"

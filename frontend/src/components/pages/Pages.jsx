@@ -59,6 +59,8 @@ import Post from "../admin/post";
 import Adminpostshow from "../admin/adminpostshow";
 import Editpost from "../admin/editpost";
 import Adminrate from "../admin/adminrate";
+import Adminuserservices from "../admin/adminuserservices";
+
 
 
 
@@ -78,7 +80,8 @@ const Pages = () => {
     "/post",
     "/adminpostshow",
     "/editpost",
-    "/adminrate"
+    "/adminrate",
+    "/adminuserservices"
     // add other admin paths here
   ];
 
@@ -129,7 +132,9 @@ const Pages = () => {
         <Route exact path='/adminpostshow' component={Adminpostshow} />
         <Route exact path='/editpost/:postId' component={Editpost} />
         <Route exact path='/adminrate' component={Adminrate} />
+        <Route exact path='/adminuserservices' component={Adminuserservices} />
 
+        
         
         
         <Route exact path='/ownerservices' component={Ownerservices} />

@@ -56,9 +56,9 @@ function CartPage() {
   return (
     <div>
       <h2>Your Cart</h2>
-      <div  className="card-container">
+      <center><div  className="card-contain">
         {cartItems.map(cartItem => (
-          <div style={{width:'900px',marginBottom:'100px'}} key={cartItem._id} className="card">
+          <div style={{width:'900px',marginBottom:'100px' }} key={cartItem._id} className="card">
             {cartItem.eventDetails && (
               <>
                 <img style={{width:'20%'}} src={`./images/event/${cartItem.eventDetails.image}`} alt="Event" />
@@ -73,7 +73,7 @@ function CartPage() {
             )}
           </div>
         ))}
-      </div>
+      </div></center>
     </div>
   );
 }

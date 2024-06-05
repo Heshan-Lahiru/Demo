@@ -34,7 +34,7 @@ const Profile = () => {
 
     if (redirect) {
         history.push('/login');
-    // Refresh the page
+    
     window.location.reload();
     return null;
     }

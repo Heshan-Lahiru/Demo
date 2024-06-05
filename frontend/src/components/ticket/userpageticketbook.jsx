@@ -6,16 +6,31 @@ const Userpageticketbook = ({ location }) => {
   const { price, image, location: eventLocation, category } = location.state || {};
   const [name, setName] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
+  const [accNumber, setAccNumber] = useState('');
   const [paymentError, setPaymentError] = useState(null);
 
   const handlePayment = async () => {
+    if (!/^[0-9]{10}$/.test(mobileNumber)) {
+      setPaymentError("Mobile number must be exactly 10 digits.");
+      return;
+    }
+    if (/[^a-zA-Z\s]/.test(name)) {
+      setPaymentError("Name cannot contain special characters.");
+      return;
+    }
+    if (!/^\d{3}-\d{3}-\d{3}-\d{3}$/.test(accNumber)) {
+      setPaymentError("Account number must be in the format 123-123-123-123.");
+      return;
+    }
+
     try {
       const response = await axios.post('http://localhost:3001/payment', {
         name,
         mobileNumber,
+        accNumber,
       });
-      console.log(response.data); 
-      alert("successful payment");
+      console.log(response.data);
+      alert("Successful payment");
 
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
@@ -27,7 +42,7 @@ const Userpageticketbook = ({ location }) => {
       img.crossOrigin = "anonymous"; 
       img.onload = () => {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        
+
         ctx.fillStyle = "white";
         ctx.fillRect(0, 0, 200, 400); 
 
@@ -65,7 +80,6 @@ const Userpageticketbook = ({ location }) => {
               {price ? `Price: LKR ${price}/=` : "No price available"}<br />
               {eventLocation ? `Location: ${eventLocation}` : "No location available"}<br />
               {category ? `Date: ${category}` : "No category available"}<br />
-             {/* {userId ? ` ${userId}` : "No userId available"} */}
             </label>
             <label htmlFor="acc">Acc No:</label>
             <input 
@@ -73,7 +87,9 @@ const Userpageticketbook = ({ location }) => {
               id="acc" 
               name="acc" 
               required 
-             
+              value={accNumber}
+              onChange={(e) => setAccNumber(e.target.value)}
+              placeholder="123-123-123-123"
             />
             <label htmlFor="name">Name:</label>
             <input 
@@ -90,10 +106,10 @@ const Userpageticketbook = ({ location }) => {
               type="tel" 
               id="mobileNumber" 
               name="mobileNumber" 
-              pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" 
               required 
               value={mobileNumber} 
               onChange={(e) => setMobileNumber(e.target.value)} 
+              placeholder="0771111111"
             />
 
             <button style={{ backgroundColor: '#E00947' }} type="button" onClick={handlePayment}>Pay</button>

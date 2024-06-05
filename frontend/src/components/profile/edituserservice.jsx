@@ -31,9 +31,14 @@ const EditSoundService = () => {
     if (e.target.name === 'image') {
       setFormData({ ...formData, image: e.target.files[0] });
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      let value = e.target.value;
+      if (e.target.name === 'name') {
+        value = value.replace(/[0-9@#$%]/g, '');
+      }
+      setFormData({ ...formData, [e.target.name]: value });
     }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -70,14 +75,26 @@ const EditSoundService = () => {
           
           required
         />
-        <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          placeholder="Location"
-          required
-        />
+       <select style={{width:'100%',height:'40px'}}
+  name="location"
+  value={formData.location}
+  onChange={handleChange}
+  required
+>
+  <option value="">Select Location</option>
+  <option value="Colombo">Colombo</option>
+  <option value="Kandy">Kandy</option>
+  <option value="Galle">Galle</option>
+  <option value="Matara">Matara</option>
+  <option value="Jaffna">Jaffna</option>
+  <option value="Negombo">Negombo</option>
+  <option value="Anuradhapura">Anuradhapura</option>
+  <option value="Polonnaruwa">Polonnaruwa</option>
+  <option value="Trincomalee">Trincomalee</option>
+  {/* Add more options for other Sri Lankan cities */}
+</select>
+
+
         <input
           type="number"
           name="price"

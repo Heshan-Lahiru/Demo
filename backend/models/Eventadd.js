@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define schema for event data
+
 const EventSchema = new mongoose.Schema({
     userId: {
         type: String,
@@ -28,7 +28,7 @@ const EventSchema = new mongoose.Schema({
     }
 });
 
-// Create model based on schema
+
 const EventModel = mongoose.model('events', EventSchema);
 
 module.exports = EventModel;

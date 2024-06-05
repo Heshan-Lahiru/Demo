@@ -12,8 +12,8 @@ const Eventadd = () => {
   const [price, setPrice] = useState("");
   const [categoryError, setCategoryError] = useState("");
   const [eventNameError, setEventNameError] = useState("");
-  const [locationError, setLocationError] = useState(""); // State to manage location format error
-  const [priceError, setPriceError] = useState(""); // State to manage price format error
+  const [locationError, setLocationError] = useState(""); 
+  const [priceError, setPriceError] = useState(""); 
   const [submissionError, setSubmissionError] = useState("");
   const history = useHistory();
   const [redirect, setRedirect] = useState(false);
@@ -33,28 +33,28 @@ const Eventadd = () => {
     event.preventDefault();
     try {
       if (!isValidCategory(category)) {
-        setCategoryError("Category format should be date/month/year (e.g., 24/05/2024)");
+        setCategoryError(" should be date/month/year (e.g., 24/05/2024)");
         return;
       } else {
         setCategoryError("");
       }
 
       if (!isValidEventName(eventName)) {
-        setEventNameError("Invalid event name. Please choose from musical, carnival, festival, party, food festival.");
+        setEventNameError(" Invalid EventName.");
         return;
       } else {
         setEventNameError("");
       }
 
       if (!isValidLocation(location)) {
-        setLocationError("Invalid location. Please enter a Sri Lankan city.");
+        setLocationError("Invalid location. .");
         return;
       } else {
         setLocationError("");
       }
 
       if (!isValidPrice(price)) {
-        setPriceError("Invalid price format. Price should be a number with 3 to 5 digits.");
+        setPriceError(" Price should be a number with 3 to 5 digits.");
         return;
       } else {
         setPriceError("");
@@ -106,7 +106,7 @@ const Eventadd = () => {
   };
 
   const isValidLocation = (inputLocation) => {
-    // List of Sri Lankan cities (add more if needed)
+    
     const cities = ["colombo", "gampaha", "kandy", "negombo", "jaffna", "kalmunai", "galle", "trincomalee", "batticaloa", "kurunegala", "kegalle", "ratnapura", "badulla", "anuradhapura", "matara", "puttalam", "nuwara eliya", "balangoda", "chilaw", "kattankudy"];
     return cities.includes(inputLocation.toLowerCase());
   };
@@ -116,11 +116,11 @@ const Eventadd = () => {
     return priceRegex.test(inputPrice);
   };
   const handleLogout = () => {
-    // Remove cookies
+    
     Cookies.remove('userId');
     Cookies.remove('userName');
     Cookies.remove('userEmail');
-    // Redirect to login page
+   
     setRedirect(true);
 };
 
@@ -203,7 +203,7 @@ const Eventadd = () => {
             />
             {priceError && <p className="error">{priceError}</p>}
           </div>
-          <button style={{ backgroundColor: '#E00947', marginTop: '40px', marginBottom: '40px' }} type="submit">
+          <button style={{ backgroundColor: '#E00947', marginTop: '20px', marginBottom: '40px' }} type="submit">
             Submit
           </button>
           {submissionError && <p className="error">{submissionError}</p>}

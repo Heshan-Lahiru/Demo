@@ -224,7 +224,7 @@ if (ratings.length <= 6) {
 
 
         <center>
-          <p style={{marginBottom:'130px'}}>You Can Upload Post for your Event</p>
+          <p style={{marginBottom:'130px'}}>You Can Upload Post for your Event Call to us (0764165833)</p>
           <div className="image-row">
           {images.map((image, index) => (
           <img style={{ maxWidth: '100%',marginRight:'70px' }} key={index} src={`./images/event/${image.filename}`} alt={`Image ${index}`} />

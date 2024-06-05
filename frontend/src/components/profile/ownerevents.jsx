@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom'; // Import Link here
+import { useHistory, Link } from 'react-router-dom'; 
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import "../admin/adminshowevent.css";
 
-// Assuming you have a Heading component, import it here
 
 const Ownerevents = () => {
   const [events, setEvents] = useState([]);
@@ -36,7 +35,6 @@ const Ownerevents = () => {
   const handleDelete = async (eventId, userId) => {
     try {
       await axios.delete(`http://localhost:3001/deleteEvent/${eventId}`);
-      // Update the events list after successful deletion
       fetchUserEvents(userId);
     } catch (error) {
       console.error('Error deleting event:', error);
@@ -44,17 +42,14 @@ const Ownerevents = () => {
   };
 
   const handleLogout = () => {
-    // Remove cookies
     Cookies.remove('userId');
     Cookies.remove('userName');
     Cookies.remove('userEmail');
-    // Redirect to login page
     setRedirect(true);
   };
 
   if (redirect) {
     history.push('/login');
-    // Refresh the page
     window.location.reload();
     return null;
   }

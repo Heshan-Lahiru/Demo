@@ -36,7 +36,7 @@ const Serviceadd = () => {
   }, [searchTerm, services]);
 
   const handleLogout = () => {
-    // Your logout logic here
+    
     console.log('User logged out');
   };
 

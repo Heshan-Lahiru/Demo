@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import axios from "axios";
-import Cookies from "js-cookie"; // Add this line to import Cookies module
+import Cookies from "js-cookie"; 
 
 function Usereventupdate() {
   const { id } = useParams();
@@ -59,12 +59,10 @@ function Usereventupdate() {
   };
 
   const handleLogout = () => {
-    // Clear cookies
     Cookies.remove('userId');
     Cookies.remove('userName');
     Cookies.remove('userEmail');
 
-    // Redirect to login page
     history.push("/login");
   };
 

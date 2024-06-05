@@ -27,4 +27,29 @@
     font-size: 1em;
     cursor: pointer;
   }
+  .contact {
+    background-image: url('https://images.pexels.com/photos/33999/pexels-photo.jpg?cs=srgb&dl=pexels-negativespace-33999.jpg&fm=jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  #custom-alert {
+    /* Style the modal box here */
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 20px;
+    position: fixed; /* Center the box on screen */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Initially hidden */
+    z-index: 10; /* Ensure it's on top of other elements */
+  }
+  
+  #close-alert {
+    /* Style the close button here */
+    padding: 5px 10px;
+    background-color: #ddd;
+    border: none;
+    cursor: pointer;
+  }
   
